@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/images/banner.png" alt="麦麦参谋 · 同一顿，换个买法" width="880">
+  <img src="docs/images/banner.png?v=2" alt="麦麦参谋 · 同一顿，换个买法" width="880">
 </p>
 
 <p align="center">
@@ -36,11 +36,11 @@
 ## 先看效果
 
 <p align="center">
-  <img src="docs/images/cases.png" alt="三个真实案例：随心配省 ¥13.1；菜单 ¥28 的四件套不加卡要 ¥57；只要一个汉堡时保持原单" width="880">
+  <img src="docs/images/cases.png?v=2" alt="三个真实案例：随心配省 ¥13.1；菜单 ¥28 的四件套不加卡要 ¥57；只要一个汉堡时保持原单" width="880">
 </p>
 
 <p align="center">
-  <img src="docs/images/terminal.png" alt="终端输出：建议三件套 ¥33.5，比分开点少付 ¥12.5，并解释 ¥28 的四件套和可领券" width="760">
+  <img src="docs/images/terminal.png?v=2" alt="终端输出：建议三件套 ¥33.5，比分开点少付 ¥12.5，并解释 ¥28 的四件套和可领券" width="760">
   <br><sub>离线回放 2026-10-21 晚在上海黄浦华旭国际大厦餐厅录下的官方返回（<code>fixtures/</code>，任何人都能复现）。价格因门店、时段而异，不是全国统一价。</sub>
 </p>
 
@@ -111,15 +111,9 @@ Skill 按**三层渐进式披露**组织：
 
 ## 它怎么工作
 
-```mermaid
-flowchart LR
-  A["你：麦辣鸡腿堡 中薯 中可乐"] --> B["拆成具体食物<br/>中薯 = 中薯条 · 中可乐 = 可乐中杯"]
-  B --> C["枚举同一顿的买法<br/>分开点 / 套餐+换品 / 随心配 / 组合 / 门店券"]
-  C --> D["麦当劳官方 calculate-price<br/>逐个核价"]
-  D --> E["只给 1 个建议<br/>+ 一张账单"]
-  C -. 菜单更便宜但要随单买卡 .-> F["不加卡 / 加卡<br/>分别核价，只解释"]
-  F --> E
-```
+<p align="center">
+  <img src="docs/images/flow.png?v=2" alt="它怎么工作：你说想吃什么 → 拆成具体食物 → 列出同一顿的所有买法 → 麦当劳官方核价 → 一个建议 + 一张账单；可领券标为待核验，会员条件价分别核价只解释" width="880">
+</p>
 
 - **同一顿，由代码判定**：每个方案拆开后，食物清单必须和你要的完全一致，多出一份薯条也不行。小杯和中杯算两种东西；「任选 3 份」这样的格子按份数算。买不到一模一样的一顿时会直说（例如某样东西只在会多出别的东西的套餐里卖）。
 - **说不清就先问**：名字只有完全对上才直接用，「巨无霸大套餐」「鸡块」这种会先给你选项，不会悄悄换成别的东西。「学生专享」这类有资格限制的商品不会出现在方案里。
@@ -156,6 +150,7 @@ flowchart LR
 ## 项目信息
 
 - 麦当劳程序员创意开发大赛参赛作品，**非麦当劳官方产品**。项目里没有使用麦当劳的商标图形。
+- 报名 Issue：[M-China/mcd-developer-innovation-challenge#983](https://github.com/M-China/mcd-developer-innovation-challenge/issues/983)（官方已确认成功参赛）
 - 参赛声明：[CONTEST_DECLARATION.md](CONTEST_DECLARATION.md) · MCP 接入说明：[MCP_INTEGRATION.md](MCP_INTEGRATION.md) · 配置示例：[mcp-config.example.json](mcp-config.example.json)
 - 许可证：[MIT](LICENSE)
 

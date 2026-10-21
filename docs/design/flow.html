@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&family=Noto+Sans+SC:wght@500;700;900&family=Archivo+Black&display=block" rel="stylesheet">
+<style>
+  :root { --red:#DA291C; --deep:#B71C10; --yellow:#FFC72C; --cream:#FFF8E7; --ink:#27251F; --mute:#7d7563; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { width:1760px; height:780px; overflow:hidden; font-family:"Noto Sans SC",sans-serif; color:var(--ink);
+         background: repeating-linear-gradient(-45deg, rgba(218,41,28,.045) 0 16px, transparent 16px 32px), #FFF3D6; }
+  header { position:absolute; left:70px; top:44px; right:70px; display:flex; align-items:baseline; justify-content:space-between; }
+  header h3 { font-family:"ZCOOL KuaiLe"; font-weight:400; font-size:56px; color:var(--red); }
+  header p { font-size:22px; color:var(--mute); font-weight:700; }
+  .lane { position:absolute; left:70px; right:70px; top:170px; display:flex; align-items:stretch; gap:0; }
+  .step { width:276px; background:var(--cream); border-radius:22px; padding:26px 22px 24px; position:relative;
+          box-shadow:0 14px 28px rgba(0,0,0,.14); border-top:12px solid var(--red); }
+  .step.hot { background:var(--red); color:#fff; border-top-color:var(--yellow); }
+  .num { position:absolute; top:-30px; left:20px; width:52px; height:52px; border-radius:50%; background:var(--yellow); color:var(--ink);
+         font-family:"Archivo Black"; font-size:26px; display:flex; align-items:center; justify-content:center; box-shadow:0 5px 0 rgba(0,0,0,.15); }
+  .step h4 { margin-top:16px; font-weight:900; font-size:29px; line-height:1.25; }
+  .step .say { margin-top:14px; font-size:19px; line-height:1.6; color:#4a4538; }
+  .step.hot .say { color:#FFE9C2; }
+  .chip { display:inline-block; margin-top:14px; background:var(--yellow); color:var(--ink); font-weight:900; font-size:17px; padding:6px 12px; border-radius:10px; }
+  .step.hot .chip { background:#fff; color:var(--red); }
+  .arrow { width:52px; display:flex; align-items:center; justify-content:center; }
+  .arrow svg { width:42px; height:42px; }
+  .tool { font-family:"Archivo Black"; font-size:15px; letter-spacing:.5px; color:var(--red); margin-top:10px; }
+  .step.hot .tool { color:var(--yellow); }
+  .branch { position:absolute; left:70px; right:70px; top:520px; display:flex; gap:28px; }
+  .side:first-child { flex:0 0 840px; }
+  .side { flex:1; background:#fff; border-radius:20px; padding:22px 26px; box-shadow:0 10px 22px rgba(0,0,0,.10); border-left:12px solid #F2A100; display:flex; gap:20px; align-items:center; }
+  .side.pend { border-left-color:#E0B000; }
+  .tag { flex:none; font-weight:900; font-size:20px; color:#fff; background:#F2A100; padding:8px 14px; border-radius:12px; }
+  .side.pend .tag { background:#C99A00; }
+  .side p { font-size:21px; line-height:1.55; color:#3d382d; }
+  .side b { color:var(--red); }
+  .hook { position:absolute; left:863px; top:448px; width:4px; height:72px; background:repeating-linear-gradient(to bottom, #C99A00 0 9px, transparent 9px 15px); }
+  .hook2 { position:absolute; left:1191px; top:448px; width:4px; height:72px; background:repeating-linear-gradient(to bottom, #F2A100 0 9px, transparent 9px 15px); }
+  footer { position:absolute; left:70px; right:70px; bottom:34px; display:flex; justify-content:space-between; font-size:19px; color:var(--mute); font-weight:700; }
+  footer span b { color:var(--red); }
+</style></head>
+<body>
+<header><h3>它怎么工作：同一顿，换个买法</h3><p>算账交给代码 · 价格只认麦当劳官方</p></header>
+<div class="lane">
+  <div class="step"><div class="num">1</div><h4>你说想吃什么</h4>
+    <div class="say">「麦辣鸡腿堡<br>　中薯 中可乐」<br>也可以直接报套餐名</div>
+    <span class="chip">在哪家店：城市 + 地标</span></div>
+  <div class="arrow"><svg viewBox="0 0 24 24"><path d="M4 12h13M12 5l7 7-7 7" fill="none" stroke="#DA291C" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+  <div class="step"><div class="num">2</div><h4>拆成具体食物</h4>
+    <div class="say">中薯 = 中薯条<br>中可乐 = 可乐中杯<br>说不清的先问你</div>
+    <span class="chip">不猜、不偷换</span></div>
+  <div class="arrow"><svg viewBox="0 0 24 24"><path d="M4 12h13M12 5l7 7-7 7" fill="none" stroke="#DA291C" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+  <div class="step"><div class="num">3</div><h4>列出同一顿的<br>所有买法</h4>
+    <div class="say">分开点 · 套餐 + 换品<br>随心配 1+1 · 门店券</div>
+    <span class="chip">多一样、少一样都不算</span></div>
+  <div class="arrow"><svg viewBox="0 0 24 24"><path d="M4 12h13M12 5l7 7-7 7" fill="none" stroke="#DA291C" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+  <div class="step"><div class="num">4</div><h4>麦当劳<br>官方核价</h4>
+    <div class="say">每个候选逐个核价<br>核价成功的才参与排名</div>
+    <div class="tool">calculate-price</div></div>
+  <div class="arrow"><svg viewBox="0 0 24 24"><path d="M4 12h13M12 5l7 7-7 7" fill="none" stroke="#DA291C" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+  <div class="step hot"><div class="num">5</div><h4>一个建议<br>+ 一张账单</h4>
+    <div class="say">少付多少、为什么<br>门店 · 时间 · 核价编号</div>
+    <span class="chip">省不下就直说</span></div>
+</div>
+<div class="hook"></div><div class="hook2"></div>
+<div class="branch">
+  <div class="side pend"><span class="tag">可领券</span><p>还没领的券拿不到券号，标为<b>待核验</b>、不参与排名；领券要你在终端亲手输入 y。</p></div>
+  <div class="side"><span class="tag">看着便宜</span><p>菜单更便宜但要<b>随单加购会员卡</b>：不加卡、加卡（含卡费）<b>分别核价</b>，只解释，不推荐买卡。</p></div>
+</div>
+<footer><span>用到麦当劳 MCP 的 <b>8</b> 个工具 · 默认只读 · 不下单</span><span>非麦当劳官方产品</span></footer>
+</body></html>

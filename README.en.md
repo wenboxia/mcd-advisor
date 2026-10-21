@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/images/banner.png" alt="McD Advisor · same meal, smarter way to buy" width="880">
+  <img src="docs/images/banner.png?v=2" alt="McD Advisor · same meal, smarter way to buy" width="880">
 </p>
 
 <p align="center">
@@ -28,8 +28,8 @@ Built on the official McDonald's China MCP server for the McDonald's Developer I
 
 ## What it looks like
 
-<p align="center"><img src="docs/images/cases.png" alt="Three real cases" width="880"></p>
-<p align="center"><img src="docs/images/terminal.png" alt="A real run in the terminal" width="760"></p>
+<p align="center"><img src="docs/images/cases.png?v=2" alt="Three real cases" width="880"></p>
+<p align="center"><img src="docs/images/terminal.png?v=2" alt="A real run in the terminal" width="760"></p>
 
 All three cases come from one real store in Shanghai on 2026-10-21. Prices vary by store and time of day.
 
@@ -76,4 +76,8 @@ The host model asks what you want, runs the script and explains the result. Pric
 - **Read-only by default.** Tool calls go through a whitelist. Placing orders and drawing lotteries are impossible. Claiming coupons (`--claim`) claims all available coupons at once, so it asks you to type `y` in a real terminal first.
 - **Secrets stay local.** `npm run check-secrets` scans every file to be committed and compares it against your real local token values.
 
+<p align="center"><img src="docs/images/flow.png?v=2" alt="How it works" width="880"></p>
+
 Tool choices, call flow and pitfalls are in [MCP_INTEGRATION.md](MCP_INTEGRATION.md). License: [MIT](LICENSE).
+
+Contest registration: [M-China/mcd-developer-innovation-challenge#983](https://github.com/M-China/mcd-developer-innovation-challenge/issues/983) (accepted).

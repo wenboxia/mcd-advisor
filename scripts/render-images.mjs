@@ -37,6 +37,7 @@ ${colored}</pre></div></body></html>`);
 const shots = [
   ['banner', 1760, 640],
   ['cases', 1760, 820],
+  ['flow', 1760, 780],
   ['terminal', 1500, height],
 ];
 for (const [name, w, h] of shots) {

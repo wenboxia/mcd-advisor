@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&family=Noto+Sans+SC:wght@500;700;900&family=Archivo+Black&display=block" rel="stylesheet">
+<style>
+  :root { --red:#DA291C; --yellow:#FFC72C; --cream:#FFF8E7; --ink:#27251F; --mute:#8a826f; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { width:1760px; height:820px; overflow:hidden; font-family:"Noto Sans SC",sans-serif; background:#FFF3D6; color:var(--ink); }
+  .bg { position:absolute; inset:0; background: repeating-linear-gradient(-45deg, rgba(218,41,28,.04) 0 16px, transparent 16px 32px); }
+  header { position:absolute; left:70px; top:46px; }
+  header h3 { font-family:"ZCOOL KuaiLe"; font-weight:400; font-size:54px; color:var(--red); }
+  header p { margin-top:6px; font-size:22px; color:var(--mute); font-weight:500; }
+  .cards { position:absolute; left:70px; right:70px; top:178px; display:flex; gap:44px; }
+  .card { flex:1; background:var(--cream); padding:28px 30px 34px; position:relative; box-shadow:0 18px 36px rgba(0,0,0,.16); border-top:12px solid var(--red); }
+  .card.warn { border-top-color:#F2A100; } .card.keep { border-top-color:#2E7D32; }
+  .badge { display:inline-block; font-weight:900; font-size:22px; padding:6px 14px; border-radius:10px; background:var(--red); color:#fff; }
+  .warn .badge { background:#F2A100; } .keep .badge { background:#2E7D32; }
+  .q { margin-top:16px; font-weight:900; font-size:28px; line-height:1.4; }
+  .items { margin-top:12px; color:#5b5547; font-size:19px; white-space:nowrap; border-bottom:3px dashed #d6ccb4; padding-bottom:16px; }
+  .row { display:flex; justify-content:space-between; align-items:baseline; margin-top:16px; font-size:23px; font-weight:700; }
+  .strike { color:#a39a84; text-decoration:line-through; text-decoration-thickness:3px; }
+  .big { font-family:"Archivo Black"; font-size:46px; color:var(--red); }
+  .warn .big { color:#C77700; } .keep .big { color:#2E7D32; }
+  .note { margin-top:18px; background:#fff; border-radius:12px; padding:14px 16px; font-size:20px; line-height:1.6; color:#4a4538; }
+  .note b { color:var(--red); }
+  footer { position:absolute; left:70px; right:70px; bottom:34px; font-size:19px; color:var(--mute); display:flex; justify-content:space-between; }
+</style></head>
+<body><div class="bg"></div>
+<header><h3>三个真实案例，都来自麦当劳官方核价</h3><p>同一家店、同一时间、同样的东西：省得下就说怎么省，省不下就直说。</p></header>
+<div class="cards">
+  <div class="card">
+    <span class="badge">① 换个买法</span>
+    <div class="q">只想吃个汉堡配杯可乐</div>
+    <div class="items">麦香鸡 ×1 · 可乐中杯 ×1</div>
+    <div class="row"><span>分开点</span><span class="strike">¥27.0</span></div>
+    <div class="row"><span>随心配 1+1</span><span class="big">¥13.9</span></div>
+    <div class="note">一样不少，<b>少付 ¥13.1</b>。两份就是 ¥27.8 vs ¥54.0。</div>
+  </div>
+  <div class="card warn">
+    <span class="badge">② 看着便宜</span>
+    <div class="q">菜单显示 ¥28 的四件套</div>
+    <div class="items">麦辣鸡腿汉堡 · 中薯条 · 可乐中杯 · 麦乐鸡4块</div>
+    <div class="row"><span>不加卡</span><span class="big">¥57.0</span></div>
+    <div class="row"><span>加 ¥9.9 体验卡</span><span>¥37.9</span></div>
+    <div class="note">¥28 要<b>随单加购麦金卡</b>才成立。只要汉堡 + 薯条 + 可乐的话，三件套 <b>¥33.5</b> 就够了。</div>
+  </div>
+  <div class="card keep">
+    <span class="badge">③ 保持原单</span>
+    <div class="q">只要一个麦辣鸡腿汉堡</div>
+    <div class="items">麦辣鸡腿汉堡 ×1</div>
+    <div class="row"><span>单点</span><span class="big">¥22.5</span></div>
+    <div class="row"><span>套餐？</span><span>会多出薯条可乐，不推</span></div>
+    <div class="note">没有更便宜的同餐买法，<b>保持原来的点法就好</b>。不为了「省」让你多买。</div>
+  </div>
+</div>
+<footer><span>麦当劳上海黄浦华旭国际大厦餐厅 · 到店 · 2026-10-21 晚 · 单次官方核价记录</span><span>价格因门店、时段而异，不是全国统一价</span></footer>
+</body></html>

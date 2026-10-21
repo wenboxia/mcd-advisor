@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&family=Noto+Sans+SC:wght@500;700;900&family=Archivo+Black&display=block" rel="stylesheet">
+<style>
+  :root { --red:#DA291C; --deep:#B71C10; --yellow:#FFC72C; --cream:#FFF8E7; --ink:#27251F; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { width:1760px; height:640px; overflow:hidden; font-family:"Noto Sans SC",sans-serif; }
+  .wrap { position:relative; width:100%; height:100%; background:
+      radial-gradient(1200px 500px at -10% 120%, rgba(255,199,44,.28), transparent 60%),
+      repeating-linear-gradient(-45deg, rgba(255,255,255,.035) 0 18px, transparent 18px 36px),
+      linear-gradient(135deg, var(--red), var(--deep)); color:#fff; }
+  .left { position:absolute; left:96px; top:52px; width:900px; }
+  .chip { display:inline-flex; gap:10px; align-items:center; background:rgba(0,0,0,.22); border:2px solid rgba(255,255,255,.25);
+          padding:8px 18px; border-radius:999px; font-weight:700; font-size:22px; letter-spacing:1px; }
+  .chip i { width:12px; height:12px; border-radius:50%; background:var(--yellow); display:inline-block; }
+  h1 { font-family:"ZCOOL KuaiLe",sans-serif; font-weight:400; font-size:158px; line-height:1; margin-top:28px; color:var(--yellow);
+       text-shadow: 0 8px 0 rgba(0,0,0,.18); letter-spacing:6px; }
+  h2 { font-weight:900; font-size:54px; margin-top:14px; letter-spacing:4px; }
+  .points { display:flex; gap:14px; margin-top:28px; flex-wrap:wrap; }
+  .points span { background:var(--yellow); color:var(--ink); font-weight:900; font-size:24px; padding:10px 18px; border-radius:14px; box-shadow:0 5px 0 rgba(0,0,0,.18); }
+  .en { position:absolute; left:100px; bottom:22px; font-family:"Archivo Black",sans-serif; font-size:17px; letter-spacing:3px; color:rgba(255,255,255,.75); }
+  .receipt { position:absolute; right:150px; top:62px; width:470px; background:var(--cream); color:var(--ink); transform:rotate(3deg);
+             padding:30px 34px 44px; box-shadow:0 30px 60px rgba(0,0,0,.35); font-size:24px; }
+  .receipt:after { content:""; position:absolute; left:0; right:0; bottom:-18px; height:18px;
+             background: linear-gradient(-45deg, transparent 12px, var(--cream) 0) 0 0/24px 18px repeat-x,
+                         linear-gradient(45deg, transparent 12px, var(--cream) 0) 0 0/24px 18px repeat-x; }
+  .rh { display:flex; justify-content:space-between; font-weight:900; font-size:26px; border-bottom:3px dashed #c9bfa8; padding-bottom:14px; }
+  .rh small { font-weight:500; font-size:18px; color:#8a826f; }
+  .items { padding:16px 0; border-bottom:3px dashed #c9bfa8; color:#5b5547; font-weight:500; line-height:1.7; }
+  .row { display:flex; justify-content:space-between; align-items:baseline; margin-top:16px; font-weight:700; }
+  .strike { color:#9b927d; text-decoration:line-through; text-decoration-thickness:3px; }
+  .big { font-family:"Archivo Black",sans-serif; font-size:44px; color:var(--red); }
+  .ok { font-size:18px; background:#E8F5E9; color:#2E7D32; padding:3px 10px; border-radius:8px; font-weight:900; }
+  .save { margin-top:18px; background:var(--yellow); text-align:center; font-weight:900; font-size:30px; padding:12px; border-radius:12px; }
+  .stamp { position:absolute; right:-36px; top:-30px; width:132px; height:132px; border-radius:50%; border:6px solid var(--red); color:var(--red);
+           display:flex; align-items:center; justify-content:center; font-family:"ZCOOL KuaiLe"; font-size:34px; transform:rotate(-14deg); background:rgba(255,248,231,.92); }
+  .tag { position:absolute; left:100px; top:522px; background:#fff; color:var(--ink); padding:14px 22px; border-radius:16px; font-weight:900; font-size:26px;
+         transform:rotate(-1.5deg); box-shadow:0 10px 20px rgba(0,0,0,.25); }
+  .tag b { color:var(--red); }
+</style></head>
+<body><div class="wrap">
+  <div class="left">
+    <div class="chip"><i></i>麦当劳程序员创意开发大赛参赛作品 · 非麦当劳官方产品</div>
+    <h1>麦麦参谋</h1>
+    <h2>同一顿，换个买法</h2>
+    <div class="points"><span>想吃的一样不变</span><span>价格只认官方核价</span><span>一个答案 + 一张账单</span></div>
+  </div>
+  <div class="en">MCD ADVISOR · SAME MEAL, SMARTER WAY TO BUY</div>
+  <div class="tag">菜单显示 <b>¥28</b>？这次核价 <b>¥57</b></div>
+  <div class="receipt">
+    <div class="stamp">同一顿</div>
+    <div class="rh">麦麦参谋 · 账单</div>
+    <div class="items">麦辣鸡腿汉堡 ×1<br>中薯条 ×1<br>可乐中杯 ×1</div>
+    <div class="row"><span>分开点</span><span class="strike">¥46.0</span></div>
+    <div class="row"><span>三件套 <span class="ok">✓ 已核价</span></span><span class="big">¥33.5</span></div>
+    <div class="save">少付 ¥12.5，一样不少</div>
+  </div>
+</div></body></html>

@@ -1,0 +1,109 @@
+{
+ "args": {
+  "storeCode": "1450713",
+  "orderType": 1,
+  "beType": 1,
+  "items": [
+   {
+    "productCode": "9900004064",
+    "quantity": 1,
+    "roundList": [
+     {
+      "round": "1",
+      "comboItemList": [
+       {
+        "code": "1440",
+        "quantity": 1
+       }
+      ]
+     },
+     {
+      "round": "2",
+      "comboItemList": [
+       {
+        "code": "4810",
+        "quantity": 1
+       }
+      ]
+     },
+     {
+      "round": "3",
+      "comboItemList": [
+       {
+        "code": "3050",
+        "quantity": 1
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "productCode": "9900005462",
+    "quantity": 1,
+    "roundList": [
+     {
+      "round": "1",
+      "comboItemList": [
+       {
+        "code": "1406",
+        "quantity": 1
+       }
+      ]
+     },
+     {
+      "round": "2",
+      "comboItemList": [
+       {
+        "code": "4810",
+        "quantity": 1
+       }
+      ]
+     },
+     {
+      "round": "3",
+      "comboItemList": [
+       {
+        "code": "3050",
+        "quantity": 1
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "productCode": "9900005466",
+    "quantity": 1,
+    "roundList": [
+     {
+      "round": "1",
+      "comboItemList": [
+       {
+        "code": "1100",
+        "quantity": 1
+       }
+      ]
+     },
+     {
+      "round": "2",
+      "comboItemList": [
+       {
+        "code": "4810",
+        "quantity": 1
+       }
+      ]
+     },
+     {
+      "round": "3",
+      "comboItemList": [
+       {
+        "code": "3050",
+        "quantity": 1
+       }
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ "text": "# API Response Information\n\nBelow is the response from an API call. To help you understand the data, I've provided:\n\n1. A detailed description of all fields in the response structure\n2. The complete API response\n\n## Response Structure\n\n> Content-Type: application/json\n\n- **data**: No comments found. (Type: object)\n  - **data.productOriginalPrice**: 商品原价 单位分 (Type: integer)\n  - **data.productPrice**: 商品现价 单位分 (Type: integer)\n  - **data.deliveryOriginalPrice**: 运费原价 单位分 (Type: integer)\n  - **data.deliveryPrice**: 运费现价 单位分 (Type: integer)\n  - **data.packingOriginalPrice**: 打包费原价 单位分 (Type: integer)\n  - **data.packingPrice**: 打包费现价 单位分 (Type: integer)\n  - **data.tablewarePrice**: 餐具费现价 单位分 (Type: integer)\n  - **data.originalPrice**: 原价 单位分 (Type: integer)\n  - **data.discount**: 优惠金额 单位分 (Type: integer)\n  - **data.price**: 现价 单位分 (Type: integer)\n  - **data.productList**: 商品列表 (Type: array)\n    - **data.productList[].productCode**: 商品编码 (Type: string)\n    - **data.productList[].productName**: 商品名称 (Type: string)\n    - **data.productList[].quantity**: 数量 (Type: integer)\n    - **data.productList[].originalSubtotal**: 商品原小计 单位分 (Type: integer)\n    - **data.productList[].subtotal**: 商品小计 单位分 (Type: integer)\n  - **data.takeWayList**: 可选的取餐方式选项列表 (Type: array)\n    - **data.takeWayList[].code**: 取餐方式code，到店下单时需要携带 (Type: string)\n    - **data.takeWayList[].title**: 取餐方式标题 (Type: string)\n    - **data.takeWayList[].subtitle**: 取餐方式副标题 (Type: string)\n  - **data.mealAssistanceList**: 可选的助餐服务列表 (Type: array)\n    - **data.mealAssistanceList[].code**: 助餐服务编码 (Type: string)\n    - **data.mealAssistanceList[].name**: 助餐服务名称 (Type: string)\n  - **data.enjoyed**: 已享受的优惠 (Type: object)\n    - **data.enjoyed.amountType**: 1 特价 2 折扣 3 立减 (Type: string)\n    - **data.enjoyed.realDiscount**: 实际优惠值  特价(ex:18)  折扣（ex:7.5） 立减(ex:5)  金额单位是元 与discount区别计算了tender (Type: number)\n    - **data.enjoyed.balance**: 门槛差额(可享受的优惠时才有值)，单位分 (Type: integer)\n  - **data.enjoyable**: 可享受的优惠 (Type: object)\n    - **data.enjoyable.amountType**: 1 特价 2 折扣 3 立减 (Type: string)\n    - **data.enjoyable.realDiscount**: 实际优惠值  特价(ex:18)  折扣（ex:7.5） 立减(ex:5)  金额单位是元 与discount区别计算了tender (Type: number)\n    - **data.enjoyable.balance**: 门槛差额(可享受的优惠时才有值)，单位分 (Type: integer)\n- **message**: No comments found. (Type: string)\n- **traceId**: No comments found. (Type: string)\n\n## Original Response\n\n{\"success\":true,\"code\":200,\"message\":\"请求成功\",\"datetime\":\"2026-10-21 22:19:21\",\"traceId\":\"25edd26aff0f4bfdabfdc9d133c2f14b\",\"data\":{\"productOriginalPrice\":10450,\"productPrice\":10450,\"originalPrice\":10450,\"discount\":0,\"price\":10450,\"productList\":[{\"productCode\":\"9900004064\",\"productName\":\"精选单人餐三件套\",\"quantity\":1,\"originalSubtotal\":3350,\"subtotal\":3350},{\"productCode\":\"9900005462\",\"productName\":\"板烧鸡腿堡三件套\",\"quantity\":1,\"originalSubtotal\":3450,\"subtotal\":3450},{\"productCode\":\"9900005466\",\"productName\":\"巨无霸三件套\",\"quantity\":1,\"originalSubtotal\":3650,\"subtotal\":3650}],\"takeWayList\":[{\"code\":\"eat-in\",\"title\":\"堂食\",\"subtitle\":\"店内用餐\"},{\"code\":\"locker-out\",\"title\":\"外带\",\"subtitle\":\"店外取餐柜\"}]}}"
+}

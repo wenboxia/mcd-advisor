@@ -42,6 +42,16 @@ test('数量：2 个麦香鸡 + 2 杯中可乐 -> 两份随心配 ¥27.8，比�
   assertSameMeal(r);
 });
 
+test('几个人一起点：三个人各要汉堡 + 中薯 + 中可乐 -> 三份三件套 ¥104.5，比分开点少付 ¥37.5', async () => {
+  const r = await run('巨无霸 板烧鸡腿堡 麦辣鸡腿堡 3个中薯 3杯中可乐');
+  assert.equal(r.recommended.quote.price, 10450);
+  assert.equal(r.baseline.quote.price, 14200);
+  assert.equal(r.saving, 3750);
+  assert.equal(r.recommended.lines.length, 3);
+  assert.ok(r.recommended.lines.every((l) => /三件套/.test(l.name)));
+  assertSameMeal(r);
+});
+
 test('没得省：只要一个麦辣鸡腿堡时不推套餐，保持原点法', async () => {
   const r = await run('麦辣鸡腿堡');
   assert.equal(r.keepOriginal, true);

@@ -12,7 +12,7 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/prices-official%20calculate--price-DA291C" alt="prices from the official calculate-price">
-  <a href="tests/advisor.test.mjs"><img src="https://img.shields.io/badge/offline%20tests-23%20passing-2E7D32" alt="23 offline tests"></a>
+  <a href="tests/advisor.test.mjs"><img src="https://img.shields.io/badge/offline%20tests-24%20passing-2E7D32" alt="24 offline tests"></a>
   <img src="https://img.shields.io/badge/dependencies-0-FFC72C" alt="zero dependencies">
   <img src="https://img.shields.io/badge/node-%E2%89%A518-3C873A" alt="Node ≥18">
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue" alt="MIT"></a>
@@ -38,6 +38,7 @@ All three cases come from one real store in Shanghai on 2026-10-21. Prices vary 
 | McChicken + medium Coke | The "1+1" pair: **¥13.9**. Ordered separately: ¥27.0. |
 | McSpicy burger + medium fries + medium Coke | The 3-piece combo: **¥33.5**. Ordered separately: ¥46.0. The ¥28 four-piece on the menu needs a membership card bought in the same order: ¥57.0 without it, or ¥37.9 including the ¥9.9 card. It also adds extra nuggets. |
 | Just one McSpicy burger | **Keep it as is**: ¥22.5. A combo would add food you didn't ask for. |
+| Three people, each a burger + medium fries + medium Coke | Put everything in one request: **three combos, ¥104.5**. Ordered separately: ¥142.0. It does not split the bill. |
 
 ## Try it offline in 30 seconds
 

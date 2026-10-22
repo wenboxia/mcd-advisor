@@ -3,6 +3,7 @@
 </p>
 
 <p align="center">
+  <a href="https://wenboxia.github.io/mcd-advisor/"><strong>🍔 Try it online</strong></a> &middot;
   <a href="#what-it-looks-like"><strong>Demo</strong></a> &middot;
   <a href="#try-it-offline-in-30-seconds"><strong>Try offline</strong></a> &middot;
   <a href="#quick-start"><strong>Quick start</strong></a> &middot;
@@ -25,6 +26,8 @@
 Tell it what you want to eat at McDonald's China: items, sizes, and quantities. Your meal stays exactly the same. McD Advisor lists the ways to buy that same meal at that store right now: separately, as a combo with official swaps, as a "1+1" pair, or with a store coupon. It sends the most promising few, plus your original order, to McDonald's own `calculate-price` tool, and ranks only officially priced options. You get **one** recommendation plus a receipt you can verify. When nothing beats your original order, it says so.
 
 Built on the official McDonald's China MCP server for the McDonald's Developer Innovation Challenge. Not an official McDonald's product.
+
+👉 **[Try it online](https://wenboxia.github.io/mcd-advisor/)** — no install, no token. All 249 combinations on the page were priced one by one by McDonald's official `calculate-price` at a real Shanghai store.
 
 ## What it looks like
 
@@ -77,7 +80,7 @@ The host model asks what you want, runs the script and explains the result. Pric
 - **Read-only by default.** Tool calls go through a whitelist. Placing orders and drawing lotteries are impossible. Claiming coupons (`--claim`) claims all available coupons at once, so it asks you to type `y` in a real terminal first.
 - **Secrets stay local.** `npm run check-secrets` scans every file to be committed and compares it against your real local token values.
 
-<p align="center"><img src="docs/images/flow.png?v=2" alt="How it works" width="880"></p>
+<p align="center"><img src="docs/images/flow.png?v=3" alt="How it works" width="880"></p>
 
 Tool choices, call flow and pitfalls are in [MCP_INTEGRATION.md](MCP_INTEGRATION.md). License: [MIT](LICENSE).
 

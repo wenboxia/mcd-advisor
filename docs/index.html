@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>麦麦参谋 · 同一顿，换个买法</title>
+<meta name="description" content="想吃的东西一样不变，用麦当劳官方核价帮你找到这一顿更合适的买法。麦当劳程序员创意开发大赛参赛作品，非麦当劳官方产品。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root { --red:#DA291C; --deep:#B71C10; --yellow:#FFC72C; --cream:#FFF8E7; --ink:#27251F; --mute:#7D7768; --line:#E8E1D0; --bg:#FFFCF5; --green:#2E7D32; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  html { scroll-behavior:smooth; }
+  body { font-family:"Noto Sans SC",system-ui,sans-serif; color:var(--ink); background:var(--bg); line-height:1.6; overflow-x:hidden; }
+  .hero .wrap > *, .try > *, .grid3 > *, .grid4 > * { min-width:0; }
+  p, li, td, .what, .sub { overflow-wrap:anywhere; }
+  a { color:inherit; }
+  .wrap { max-width:1160px; margin:0 auto; padding:0 24px; }
+  /* nav */
+  nav { position:sticky; top:0; z-index:10; background:rgba(255,252,245,.92); backdrop-filter:blur(8px); border-bottom:1px solid var(--line); }
+  nav .wrap { display:flex; align-items:center; height:62px; gap:28px; }
+  .brand { display:flex; align-items:center; gap:10px; font-weight:900; font-size:19px; text-decoration:none; }
+  .brand i { width:30px; height:30px; border-radius:8px; background:var(--red); display:grid; place-items:center; color:var(--yellow); font-style:normal; font-size:16px; }
+  nav .links { display:flex; gap:22px; font-size:15px; color:#4a4538; margin-left:auto; }
+  nav .links + .gh { margin-left:0; }
+  nav .links a { text-decoration:none; } nav .links a:hover { color:var(--red); }
+  .gh { margin-left:auto; text-decoration:none; font-weight:700; font-size:14px; background:var(--ink); color:#fff; padding:8px 14px; border-radius:10px; }
+  /* hero */
+  .hero { background:linear-gradient(135deg,var(--red),var(--deep)); color:#fff; }
+  .hero .wrap { display:grid; grid-template-columns:1.25fr 1fr; gap:48px; align-items:center; padding-top:64px; padding-bottom:64px; }
+  .tag { display:inline-block; font-size:13px; font-weight:700; background:rgba(0,0,0,.2); border:1px solid rgba(255,255,255,.25); padding:5px 12px; border-radius:999px; }
+  .hero h1 { font-size:54px; font-weight:900; line-height:1.15; margin:18px 0 14px; letter-spacing:1px; }
+  .hero h1 em { font-style:normal; color:var(--yellow); }
+  .hero p { font-size:18px; color:#FFE5D9; max-width:560px; }
+  .pills { display:flex; flex-wrap:wrap; gap:10px; margin:22px 0 28px; }
+  .pills span { background:var(--yellow); color:var(--ink); font-weight:700; font-size:14px; padding:6px 12px; border-radius:10px; }
+  .btn { display:inline-block; text-decoration:none; font-weight:700; font-size:16px; padding:12px 22px; border-radius:12px; margin-right:12px; }
+  .btn.primary { background:var(--yellow); color:var(--ink); box-shadow:0 4px 0 rgba(0,0,0,.18); }
+  .btn.ghost { border:2px solid rgba(255,255,255,.6); color:#fff; }
+  .hook { background:var(--cream); color:var(--ink); border-radius:18px; padding:26px; box-shadow:0 24px 50px rgba(0,0,0,.25); }
+  .hook h3 { font-size:15px; color:var(--mute); font-weight:700; }
+  .hook .q { font-size:28px; font-weight:900; margin:6px 0 16px; line-height:1.3; }
+  .hook .q b { color:var(--red); }
+  .hook table { width:100%; border-collapse:collapse; font-size:15px; }
+  .hook td { padding:8px 0; border-top:1px dashed #d8ceb6; }
+  .hook td:last-child { text-align:right; font-weight:700; }
+  .hook .foot { font-size:12.5px; color:var(--mute); margin-top:10px; }
+  /* sections */
+  section { padding:72px 0; }
+  .eyebrow { color:var(--red); font-weight:900; font-size:14px; letter-spacing:2px; }
+  h2 { font-size:34px; font-weight:900; margin:6px 0 10px; }
+  .lead { color:#5b5547; font-size:17px; max-width:760px; }
+  /* try */
+  .try { display:grid; grid-template-columns:0.95fr 1.05fr; gap:26px; margin-top:30px; align-items:start; }
+  .card { background:#fff; border:1px solid var(--line); border-radius:18px; padding:24px; box-shadow:0 8px 24px rgba(39,37,31,.05); }
+  .card h3 { font-size:18px; font-weight:900; margin-bottom:14px; }
+  .card h3 small { font-weight:500; color:var(--mute); font-size:13px; margin-left:8px; }
+  .group { margin-bottom:16px; }
+  .group label { display:block; font-size:13px; font-weight:700; color:var(--mute); margin-bottom:8px; }
+  .chips { display:flex; flex-wrap:wrap; gap:8px; }
+  .chip { border:1.5px solid var(--line); background:#fff; border-radius:10px; padding:7px 12px; font-size:15px; cursor:pointer; font-family:inherit; color:var(--ink); }
+  .chip:hover { border-color:#c9bfa8; }
+  .chip.on { background:var(--ink); color:#fff; border-color:var(--ink); }
+  .stepper { display:inline-flex; align-items:center; border:1.5px solid var(--line); border-radius:10px; overflow:hidden; }
+  .stepper button { width:38px; height:36px; border:0; background:#fff; font-size:18px; cursor:pointer; }
+  .stepper span { width:46px; text-align:center; font-weight:900; }
+  .quick { border-top:1px dashed var(--line); padding-top:14px; margin-top:6px; }
+  .quick .chip { background:#FFF4D6; border-color:#F1D98F; }
+  .note { font-size:12.5px; color:var(--mute); margin-top:14px; }
+  .said { font-family:"JetBrains Mono",monospace; font-size:13px; background:#F6F2E8; padding:8px 10px; border-radius:8px; color:#4a4538; margin-top:12px; word-break:break-all; }
+  /* result */
+  .res .verdict { display:flex; align-items:flex-start; gap:12px; }
+  .badge { flex:none; font-size:13px; font-weight:900; padding:4px 10px; border-radius:8px; background:#E8F5E9; color:var(--green); margin-top:4px; }
+  .badge.keep { background:#FFF4D6; color:#9A6A00; } .badge.warn { background:#FDEBE9; color:var(--red); }
+  .res .what { font-size:22px; font-weight:900; line-height:1.35; }
+  .res .price { font-size:40px; font-weight:900; color:var(--red); margin:8px 0 2px; }
+  .res .price small { font-size:14px; color:var(--mute); font-weight:500; margin-left:8px; }
+  .save { display:inline-block; background:var(--yellow); font-weight:900; padding:5px 12px; border-radius:10px; margin:6px 0 4px; }
+  .sub { color:#5b5547; font-size:15px; }
+  .alts { margin-top:16px; border-top:1px solid var(--line); padding-top:12px; }
+  .alts h4, .box h4 { font-size:13px; color:var(--mute); font-weight:700; margin-bottom:6px; }
+  .alts li { list-style:none; display:flex; justify-content:space-between; gap:12px; font-size:14.5px; padding:5px 0; }
+  .alts li span:last-child { font-weight:700; white-space:nowrap; }
+  .box { margin-top:14px; border-radius:12px; padding:12px 14px; font-size:14.5px; }
+  .box.warn { background:#FFF4E5; border:1px solid #F6D3A0; }
+  .box.pend { background:#FFFBE6; border:1px solid #F1E2A0; }
+  details { margin-top:14px; border:1px solid var(--line); border-radius:12px; padding:10px 14px; font-size:14px; }
+  summary { cursor:pointer; font-weight:700; }
+  .receipt { font-family:"JetBrains Mono","Noto Sans SC",monospace; font-size:13px; margin-top:10px; line-height:1.8; color:#3d382d; }
+  .receipt .row { display:flex; justify-content:space-between; gap:12px; }
+  .receipt .in { color:var(--mute); padding-left:14px; }
+  /* how */
+  .flow { margin-top:26px; background:#fff; border:1px solid var(--line); border-radius:18px; padding:14px; }
+  .flow img { width:100%; display:block; border-radius:10px; }
+  .grid4 { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-top:22px; }
+  .grid4 .card h3 { font-size:16px; margin-bottom:6px; } .grid4 p { font-size:14px; color:#5b5547; }
+  .grid3 { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:26px; }
+  pre { font-family:"JetBrains Mono",monospace; font-size:12.5px; background:#1E1B16; color:#EDE6D6; border-radius:10px; padding:12px; overflow-x:auto; margin-top:10px; white-space:pre-wrap; word-break:break-all; }
+  .step { display:inline-block; width:26px; height:26px; border-radius:50%; background:var(--red); color:#fff; text-align:center; font-weight:900; margin-right:8px; line-height:26px; font-size:14px; }
+  .data li { margin:6px 0 6px 18px; color:#4a4538; }
+  footer { border-top:1px solid var(--line); padding:28px 0 40px; color:var(--mute); font-size:14px; }
+  footer .wrap { display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; }
+  @media (max-width: 900px) {
+    nav .links { display:none; }
+    nav .links + .gh { margin-left:auto; }
+    .hero .wrap, .try { grid-template-columns:minmax(0,1fr); }
+    .hero .wrap { padding-top:40px; padding-bottom:44px; }
+    .pills span { font-size:13px; }
+    .hero h1 { font-size:40px; }
+    .grid4, .grid3 { grid-template-columns:1fr 1fr; }
+  }
+  @media (max-width: 560px) {
+    .wrap { padding:0 16px; }
+    .grid4, .grid3 { grid-template-columns:minmax(0,1fr); }
+    h2 { font-size:26px; } .hero h1 { font-size:34px; } .res .price { font-size:34px; }
+    .hook .q { font-size:22px; } .btn { padding:11px 16px; margin-bottom:8px; }
+  }
+</style>
+</head>
+<body>
+<nav><div class="wrap">
+  <a class="brand" href="#"><i>麦</i>麦麦参谋</a>
+  <div class="links"><a href="#try">在线体验</a><a href="#how">怎么做到的</a><a href="#data">数据说明</a><a href="#install">安装</a></div>
+  <a class="gh" href="https://github.com/wenboxia/mcd-advisor" target="_blank" rel="noopener">★ GitHub</a>
+</div></nav>
+
+<header class="hero"><div class="wrap">
+  <div>
+    <span class="tag">麦当劳程序员创意开发大赛参赛作品 · 非麦当劳官方产品</span>
+    <h1>同一顿，<em>换个买法</em></h1>
+    <p>你想吃的东西一样都不变，麦麦参谋用<strong>麦当劳官方核价</strong>帮你核对这一顿怎么买更合适：分开点、套餐、随心配、门店券里只给一个答案，并附一张能核对的账单。省得下就告诉你怎么省，省不下就直说。</p>
+    <div class="pills"><span>想吃的一样不变</span><span>价格只认官方核价</span><span>一个答案 + 一张账单</span></div>
+    <a class="btn primary" href="#try">马上试试</a><a class="btn ghost" href="#install">装到我的 AI 助手</a>
+  </div>
+  <div class="hook" id="hook">
+    <h3>你可能也遇到过</h3>
+    <div class="q">菜单显示 <b id="hk-menu">¥28</b>，<br>为什么这次核价是 <b id="hk-plain">¥57</b>？</div>
+    <table>
+      <tr><td id="hk-name">四件套</td><td></td></tr>
+      <tr><td>不加会员卡</td><td id="hk-plain2">¥57.0</td></tr>
+      <tr><td id="hk-cardname">加体验卡（含卡费）</td><td id="hk-card">¥37.9</td></tr>
+      <tr><td>只要汉堡 + 中薯 + 中可乐？</td><td id="hk-best">三件套 ¥33.5</td></tr>
+    </table>
+    <div class="foot" id="hk-foot">数据：麦当劳官方 calculate-price 核价记录</div>
+  </div>
+</div></header>
+
+<section id="try"><div class="wrap">
+  <div class="eyebrow">在线体验 · 不用装、不用 Token</div>
+  <h2>选你想吃的，看它怎么建议</h2>
+  <p class="lead">下面每一个价格，都是在一家真实门店、真实时间点，由麦当劳官方核价接口返回的；不是估算。装上之后，它会用你自己的门店实时核价。</p>
+  <div class="try">
+    <div class="card">
+      <h3>① 选你想吃的<small>每组选一个，可以不选</small></h3>
+      <div class="group"><label>主食</label><div class="chips" id="g-main"></div></div>
+      <div class="group"><label>小食</label><div class="chips" id="g-side"></div></div>
+      <div class="group"><label>饮品</label><div class="chips" id="g-drink"></div></div>
+      <div class="group"><label>份数（同样的来几份）</label>
+        <div class="stepper"><button id="minus" aria-label="减少">−</button><span id="n">1</span><button id="plus" aria-label="增加">+</button></div></div>
+      <div class="quick group"><label>或者直接看这几个场景</label><div class="chips" id="g-quick"></div></div>
+      <div class="said" id="said"></div>
+      <div class="note" id="meta"></div>
+    </div>
+    <div class="card res" id="result"><h3>② 麦麦参谋的回答</h3><div id="out">加载中…</div></div>
+  </div>
+</div></section>
+
+<section id="how" style="background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)"><div class="wrap">
+  <div class="eyebrow">怎么做到的</div>
+  <h2>算账交给代码，价格只认麦当劳官方</h2>
+  <p class="lead">AI 只负责听懂你要什么、把结果讲清楚；比价、核价、排序全部由确定性代码完成。下图是完整的业务流程。</p>
+  <div class="flow"><img src="images/flow.png?v=3" alt="麦麦参谋业务流程：用户、AI 助手、麦麦参谋引擎、麦当劳官方 MCP 四条泳道"></div>
+  <div class="grid4">
+    <div class="card"><h3>同一顿，由代码判定</h3><p>拆开后的食物清单必须和你要的完全一致，多一样少一样都不算；小杯和中杯是两种东西。</p></div>
+    <div class="card"><h3>价格只认官方</h3><p>每个候选都送 calculate-price 核价，核价成功的才参与排名，从不让 AI 口算价格。</p></div>
+    <div class="card"><h3>说不清就先问</h3><p>「巨无霸大套餐」「鸡块」这种模糊说法会先给你选项，不会悄悄换成别的东西。</p></div>
+    <div class="card"><h3>省不下就直说</h3><p>没有更合适的买法，就告诉你保持原来的点法；不为了「省」让你多买，不推荐买卡。</p></div>
+  </div>
+</div></section>
+
+<section id="data"><div class="wrap">
+  <div class="eyebrow">数据说明</div>
+  <h2>哪些是真的，哪些有局限</h2>
+  <ul class="data">
+    <li><b>真的：</b>体验区的每个组合，都在 <span id="d-store">一家上海门店</span>、<span id="d-at">同一时间段</span> 用麦当劳官方 MCP 逐个核价，页面只是把结果原样展示。</li>
+    <li><b>可复现：</b>仓库里的 <code>fixtures/</code> 保存了官方原始返回，<code>npm test</code> 离线回放就能复现 README 里的每个数字。</li>
+    <li><b>局限：</b>这是单店、单时段的快照，价格会随门店和时间变化；装上之后会用你自己的门店实时核价，以 App 显示为准。</li>
+    <li><b>不做的事：</b>不下单、不替你换主食、不劝你多买、不推荐买会员卡；只支持到店自取。</li>
+  </ul>
+</div></section>
+
+<section id="install" style="background:#fff;border-top:1px solid var(--line)"><div class="wrap">
+  <div class="eyebrow">装到你自己的 AI 助手</div>
+  <h2>三种用法，挑一个顺手的</h2>
+  <p class="lead">先在 <a href="https://open.mcd.cn/mcp" target="_blank" rel="noopener">open.mcd.cn/mcp</a> 用手机号登录、激活，拿到你自己的 MCP Token，写进本机的 <code>~/.config/mcd-advisor/.env</code>（不要发给任何人）。</p>
+  <div class="grid3">
+    <div class="card"><h3><span class="step">1</span>在 AI 助手里一句话问</h3><p class="sub">装进 Claude Code、Codex 等支持 Skill 的工具，然后直接说「麦辣鸡腿堡加中薯中可乐，人民广场附近怎么买更划算」。</p>
+      <pre>git clone https://github.com/wenboxia/mcd-advisor.git ~/.claude/skills/mcd-advisor</pre></div>
+    <div class="card"><h3><span class="step">2</span>一句大白话（DeepSeek）</h3><p class="sub">在配置里加上 DEEPSEEK_API_KEY，用一句话提问；模型只负责听懂，价格仍然全部来自官方核价。</p>
+      <pre>node bin/mcd-advisor.mjs --ask "中午想在上海人民广场吃个麦辣鸡腿堡，配中薯和可乐"</pre></div>
+    <div class="card"><h3><span class="step">3</span>命令行（开发者）</h3><p class="sub">零依赖，Node.js 18+。加 --json 给其他程序用；加 --replay 用录好的数据离线跑。</p>
+      <pre>node bin/mcd-advisor.mjs "麦辣鸡腿堡 中薯 中可乐" --city 上海市 --near 人民广场</pre></div>
+  </div>
+</div></section>
+
+<footer><div class="wrap">
+  <span>麦麦参谋 mcd-advisor · 麦当劳程序员创意开发大赛参赛作品 · 非麦当劳官方产品 · <a href="https://github.com/M-China/mcd-developer-innovation-challenge/issues/983" target="_blank" rel="noopener">报名 #983</a></span>
+  <span><a href="https://github.com/wenboxia/mcd-advisor" target="_blank" rel="noopener">GitHub</a> · MIT License</span>
+</div></footer>
+
+<script src="data/demo.js?v=1"></script>
+<script>
+(function () {
+  const D = window.DEMO;
+  const $ = (id) => document.getElementById(id);
+  const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
+  const yuan = (v) => (v == null ? '—' : `¥${Number(v).toFixed(1)}`);
+  if (!D) { $('out').textContent = '数据没有加载成功，请刷新页面。'; return; }
+
+  const state = { main: '麦辣鸡腿堡', side: '中薯', drink: '中可乐', n: 1, preset: null };
+  const LABEL = { '中薯': '中薯条', '中可乐': '可乐中杯', '无糖可乐中杯': '无糖可乐中杯', '雪碧中杯': '雪碧中杯', '麦乐鸡5块': '麦乐鸡 5 块' };
+
+  function chips(id, list, key) {
+    const box = $(id); box.innerHTML = '';
+    for (const v of list) {
+      const b = el('button', 'chip' + (state[key] === v && !state.preset ? ' on' : ''), LABEL[v] || v);
+      b.onclick = () => { state.preset = null; state[key] = state[key] === v ? '' : v; render(); };
+      box.appendChild(b);
+    }
+  }
+  function quick() {
+    const box = $('g-quick'); box.innerHTML = '';
+    const items = [
+      { id: 'group', label: '三个人一起点', go: () => { state.preset = 'group'; } },
+      { id: 'cond', label: '菜单 ¥28 的四件套', go: () => Object.assign(state, { preset: null, main: '麦辣鸡腿堡', side: '中薯', drink: '中可乐', n: 1 }) },
+      { id: 'one', label: '只要一个汉堡', go: () => Object.assign(state, { preset: null, main: '麦辣鸡腿堡', side: '', drink: '', n: 1 }) },
+      { id: 'pair', label: '汉堡配杯可乐', go: () => Object.assign(state, { preset: null, main: '麦香鸡', side: '', drink: '中可乐', n: 1 }) },
+    ];
+    for (const q of items) {
+      const b = el('button', 'chip' + (state.preset === q.id ? ' on' : ''), q.label);
+      b.onclick = () => { q.go(); render(); };
+      box.appendChild(b);
+    }
+  }
+
+  function current() {
+    if (state.preset) return D.presets[state.preset];
+    if (!state.main && !state.side && !state.drink) return null;
+    return D.combos[`${state.main}|${state.side}|${state.drink}|${state.n}`];
+  }
+
+  function show(c) {
+    const out = $('out'); out.innerHTML = '';
+    if (!c) { out.appendChild(el('p', 'sub', '先在左边选一样想吃的。')); return; }
+    if (c.status === 'noplan') {
+      const v = el('div', 'verdict'); v.append(el('span', 'badge warn', '买不到'), el('div', 'what', '这家店没法「一模一样」地买到这一顿'));
+      out.append(v, el('p', 'sub', `${(c.onlyInCombos || []).join('、')}只在套餐里卖，而那些套餐会多出别的东西。可以换一种规格试试。`));
+      return;
+    }
+    if (c.status !== 'ok') { out.appendChild(el('p', 'sub', '这个组合这次没拿到官方核价，不给建议。')); return; }
+    const r = c.recommended;
+    const what = r.lines.map((l) => `${l.name}${l.quantity > 1 ? ' ×' + l.quantity : ''}`).join(' + ');
+    const v = el('div', 'verdict');
+    v.append(el('span', 'badge' + (c.keepOriginal ? ' keep' : ''), c.keepOriginal ? '保持原单' : '建议'), el('div', 'what', c.keepOriginal ? `保持原来的点法就好：${what}` : what));
+    out.appendChild(v);
+    const p = el('div', 'price', yuan(r.price)); p.appendChild(el('small', null, '麦当劳官方核价')); out.appendChild(p);
+    if (c.saving > 0) out.appendChild(el('div', 'save', `比分开点（${yuan(c.baseline)}）少付 ${yuan(c.saving)}`));
+    out.appendChild(el('div', 'sub', c.keepOriginal ? '没有找到更便宜的同餐买法，不为了「省」让你多买。' : '你要的一样不少，一样不多。'));
+
+    if (c.alternatives && c.alternatives.length) {
+      const a = el('div', 'alts'); a.appendChild(el('h4', null, '其他已核价的买法'));
+      const ul = el('ul');
+      for (const x of c.alternatives) { const li = el('li'); li.append(el('span', null, x.text), el('span', null, yuan(x.price) + (x.price === r.price ? '（同价）' : ''))); ul.appendChild(li); }
+      a.appendChild(ul); out.appendChild(a);
+    }
+    for (const n of c.notices || []) {
+      const b = el('div', 'box warn'); b.appendChild(el('h4', null, '⚠️ 看着便宜'));
+      const bits = [`菜单上「${n.name}」显示 ${yuan(n.menuPrice)}，这个价要随单加购会员卡`];
+      if (n.plain != null) bits.push(`不加卡官方核价 ${yuan(n.plain)}`);
+      if (n.withCard != null) bits.push(`加「${n.card ? n.card.name : '会员卡'}」后 ${yuan(n.withCard)}（含卡费）`);
+      if (n.extras && n.extras.length) bits.push(`而且会多一份${n.extras.join('、')}`);
+      b.appendChild(el('div', null, bits.join('；') + '。不推荐为了这个价去买卡。'));
+      out.appendChild(b);
+    }
+    if (c.pending && c.pending.length) {
+      const b = el('div', 'box pend'); b.appendChild(el('h4', null, '🟡 可领券'));
+      b.appendChild(el('div', null, `「${c.pending.join('」「')}」可能用得上：还没领，领了才能核价，所以不参与排名。官方领券会一次领取全部 ${c.claimableCount} 张可领券。`));
+      out.appendChild(b);
+    }
+    const d = el('details'); d.appendChild(el('summary', null, '展开账单（可核对）'));
+    const rc = el('div', 'receipt');
+    const row = (a, b, cls) => { const x = el('div', 'row' + (cls ? ' ' + cls : '')); x.append(el('span', null, a), el('span', null, b)); rc.appendChild(x); };
+    row('门店', D.store ? `${D.store.name}（${D.store.code}）· 到店` : '');
+    row('核价时间', r.at || '');
+    row('核价编号', (r.traceId || '').slice(0, 16) + '…');
+    for (const l of r.lines) {
+      row(`${l.name}${l.quantity > 1 ? ' ×' + l.quantity : ''}`, l.subtotal != null ? yuan(l.subtotal) : '');
+      if (l.contents && l.contents.length > 1) row('└ ' + l.contents.join(' / '), '', 'in');
+    }
+    row('实付', `${yuan(r.price)}（官方 calculate-price）`);
+    d.appendChild(rc); out.appendChild(d);
+    out.appendChild(el('p', 'note', `找到 ${c.searched} 种同餐买法，官方核价成功 ${c.verified} 种${c.unknown ? `，${c.unknown} 种官方未能报价（不参与排名）` : ''}。`));
+  }
+
+  function render() {
+    chips('g-main', D.menu.mains, 'main'); chips('g-side', D.menu.sides, 'side'); chips('g-drink', D.menu.drinks, 'drink'); quick();
+    $('n').textContent = state.n;
+    const c = current();
+    $('said').textContent = c ? `你说：${c.request}` : '你说：（还没选）';
+    show(c);
+  }
+  $('minus').onclick = () => { state.preset = null; state.n = Math.max(1, state.n - 1); render(); };
+  $('plus').onclick = () => { state.preset = null; state.n = Math.min(3, state.n + 1); render(); };
+
+  // Hook card and data notes come from the same recorded data.
+  const ref = D.combos['麦辣鸡腿堡|中薯|中可乐|1'];
+  const n = ref && ref.notices && ref.notices[0];
+  if (n) {
+    $('hk-menu').textContent = yuan(n.menuPrice).replace('.0', ''); $('hk-plain').textContent = yuan(n.plain).replace('.0', '');
+    $('hk-name').textContent = `「${n.name}」${n.extras && n.extras.length ? '（含' + n.extras.join('、') + '）' : ''}`;
+    $('hk-plain2').textContent = yuan(n.plain);
+    if (n.card) $('hk-cardname').textContent = `加「${n.card.name}」${yuan(n.card.price)}`;
+    $('hk-card').textContent = yuan(n.withCard);
+    $('hk-best').textContent = `${ref.recommended.lines.map((l) => l.name).join(' + ')} ${yuan(ref.recommended.price)}`;
+  }
+  const meta = `${D.store ? D.store.name : ''} · ${D.at ? D.at.slice(0, 16) : ''} · 麦当劳官方核价快照`;
+  $('meta').textContent = meta; $('hk-foot').textContent = meta;
+  if (D.store) $('d-store').textContent = D.store.name;
+  if (D.at) $('d-at').textContent = D.at.slice(0, 16) + ' 前后';
+  render();
+})();
+</script>
+</body>
+</html>

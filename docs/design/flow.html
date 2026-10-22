@@ -1,69 +1,123 @@
 <!doctype html>
 <html lang="zh-CN"><head><meta charset="utf-8">
-<link href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&family=Noto+Sans+SC:wght@500;700;900&family=Archivo+Black&display=block" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&family=JetBrains+Mono:wght@500&display=block" rel="stylesheet">
 <style>
-  :root { --red:#DA291C; --deep:#B71C10; --yellow:#FFC72C; --cream:#FFF8E7; --ink:#27251F; --mute:#7d7563; }
+  :root { --red:#DA291C; --yellow:#FFC72C; --ink:#27251F; --line:#3A3631; --mute:#7D7768; --lane:#FAF8F3; }
   * { box-sizing:border-box; margin:0; padding:0; }
-  body { width:1760px; height:780px; overflow:hidden; font-family:"Noto Sans SC",sans-serif; color:var(--ink);
-         background: repeating-linear-gradient(-45deg, rgba(218,41,28,.045) 0 16px, transparent 16px 32px), #FFF3D6; }
-  header { position:absolute; left:70px; top:44px; right:70px; display:flex; align-items:baseline; justify-content:space-between; }
-  header h3 { font-family:"ZCOOL KuaiLe"; font-weight:400; font-size:56px; color:var(--red); }
-  header p { font-size:22px; color:var(--mute); font-weight:700; }
-  .lane { position:absolute; left:70px; right:70px; top:170px; display:flex; align-items:stretch; gap:0; }
-  .step { width:276px; background:var(--cream); border-radius:22px; padding:26px 22px 24px; position:relative;
-          box-shadow:0 14px 28px rgba(0,0,0,.14); border-top:12px solid var(--red); }
-  .step.hot { background:var(--red); color:#fff; border-top-color:var(--yellow); }
-  .num { position:absolute; top:-30px; left:20px; width:52px; height:52px; border-radius:50%; background:var(--yellow); color:var(--ink);
-         font-family:"Archivo Black"; font-size:26px; display:flex; align-items:center; justify-content:center; box-shadow:0 5px 0 rgba(0,0,0,.15); }
-  .step h4 { margin-top:16px; font-weight:900; font-size:29px; line-height:1.25; }
-  .step .say { margin-top:14px; font-size:19px; line-height:1.6; color:#4a4538; }
-  .step.hot .say { color:#FFE9C2; }
-  .chip { display:inline-block; margin-top:14px; background:var(--yellow); color:var(--ink); font-weight:900; font-size:17px; padding:6px 12px; border-radius:10px; }
-  .step.hot .chip { background:#fff; color:var(--red); }
-  .arrow { width:52px; display:flex; align-items:center; justify-content:center; }
-  .arrow svg { width:42px; height:42px; }
-  .tool { font-family:"Archivo Black"; font-size:15px; letter-spacing:.5px; color:var(--red); margin-top:10px; }
-  .step.hot .tool { color:var(--yellow); }
-  .branch { position:absolute; left:70px; right:70px; top:520px; display:flex; gap:28px; }
-  .side:first-child { flex:0 0 840px; }
-  .side { flex:1; background:#fff; border-radius:20px; padding:22px 26px; box-shadow:0 10px 22px rgba(0,0,0,.10); border-left:12px solid #F2A100; display:flex; gap:20px; align-items:center; }
-  .side.pend { border-left-color:#E0B000; }
-  .tag { flex:none; font-weight:900; font-size:20px; color:#fff; background:#F2A100; padding:8px 14px; border-radius:12px; }
-  .side.pend .tag { background:#C99A00; }
-  .side p { font-size:21px; line-height:1.55; color:#3d382d; }
-  .side b { color:var(--red); }
-  .hook { position:absolute; left:863px; top:448px; width:4px; height:72px; background:repeating-linear-gradient(to bottom, #C99A00 0 9px, transparent 9px 15px); }
-  .hook2 { position:absolute; left:1191px; top:448px; width:4px; height:72px; background:repeating-linear-gradient(to bottom, #F2A100 0 9px, transparent 9px 15px); }
-  footer { position:absolute; left:70px; right:70px; bottom:34px; display:flex; justify-content:space-between; font-size:19px; color:var(--mute); font-weight:700; }
-  footer span b { color:var(--red); }
+  body { width:1760px; height:980px; background:#fff; font-family:"Noto Sans SC",sans-serif; color:var(--ink); position:relative; overflow:hidden; }
+  .title { position:absolute; left:40px; top:26px; font-size:28px; font-weight:700; letter-spacing:1px; }
+  .title i { display:inline-block; width:8px; height:26px; background:var(--red); margin-right:12px; vertical-align:-4px; border-radius:2px; }
+  .title small { font-size:17px; font-weight:500; color:var(--mute); margin-left:14px; }
+  .lane { position:absolute; left:40px; width:1680px; border-top:1px solid #E4DFD3; }
+  .lane.alt { background:var(--lane); }
+  .lane .lbl { position:absolute; left:0; top:0; bottom:0; width:130px; background:var(--ink); color:#fff; display:flex; flex-direction:column;
+               justify-content:center; padding-left:22px; font-weight:700; font-size:18px; line-height:1.35; border-left:6px solid var(--red); }
+  .lane .lbl span { font-weight:400; font-size:13px; color:#CFC8B8; }
+  .n { position:absolute; display:flex; align-items:center; justify-content:center; text-align:center; font-size:16px; line-height:1.45; padding:6px 10px; }
+  .rect { background:#fff; border:2px solid var(--line); border-radius:8px; }
+  .key { border-color:var(--red); border-width:2.5px; box-shadow:0 0 0 4px rgba(218,41,28,.08); font-weight:500; }
+  .pill { background:var(--ink); color:#fff; border-radius:30px; font-weight:500; }
+  .pill.soft { background:#fff; color:var(--ink); border:2px solid var(--ink); }
+  .mcp { background:#FDEDEB; border:2px solid var(--red); border-radius:8px; flex-direction:column; }
+  .mcp b { font-weight:700; font-size:16px; }
+  .mcp code { font-family:"JetBrains Mono",monospace; font-size:12.5px; white-space:nowrap; color:#A61B10; margin-top:4px; line-height:1.5; }
+  .note { background:#FFFDF6; border:1.5px dashed #A79F8C; border-radius:6px; font-size:13.5px; color:#4A4538; text-align:left; justify-content:flex-start; align-items:flex-start; flex-direction:column; }
+  .note b { font-size:12px; color:#fff; background:#8C8371; border-radius:4px; padding:1px 6px; margin-bottom:4px; font-weight:500; }
+  .dia { position:absolute; display:flex; align-items:center; justify-content:center; text-align:center; font-size:15.5px; font-weight:500; line-height:1.35; }
+  svg { position:absolute; left:0; top:0; }
+  .lab { position:absolute; font-size:13px; font-weight:700; padding:0 5px; background:#fff; border-radius:4px; }
+  .yes { color:#2E7D32; } .no { color:var(--red); }
+  .legend { position:absolute; left:40px; bottom:26px; display:flex; gap:26px; align-items:center; font-size:14px; color:var(--mute); }
+  .legend span { display:inline-flex; align-items:center; gap:8px; }
+  .lg { display:inline-block; width:34px; height:18px; }
+  .foot { position:absolute; right:40px; bottom:28px; font-size:14px; color:var(--mute); }
+  .foot b { color:var(--red); font-weight:700; }
 </style></head>
 <body>
-<header><h3>它怎么工作：同一顿，换个买法</h3><p>算账交给代码 · 价格只认麦当劳官方</p></header>
-<div class="lane">
-  <div class="step"><div class="num">1</div><h4>你说想吃什么</h4>
-    <div class="say">「麦辣鸡腿堡<br>　中薯 中可乐」<br>也可以直接报套餐名</div>
-    <span class="chip">在哪家店：城市 + 地标</span></div>
-  <div class="arrow"><svg viewBox="0 0 24 24"><path d="M4 12h13M12 5l7 7-7 7" fill="none" stroke="#DA291C" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-  <div class="step"><div class="num">2</div><h4>拆成具体食物</h4>
-    <div class="say">中薯 = 中薯条<br>中可乐 = 可乐中杯<br>说不清的先问你</div>
-    <span class="chip">不猜、不偷换</span></div>
-  <div class="arrow"><svg viewBox="0 0 24 24"><path d="M4 12h13M12 5l7 7-7 7" fill="none" stroke="#DA291C" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-  <div class="step"><div class="num">3</div><h4>列出同一顿的<br>所有买法</h4>
-    <div class="say">分开点 · 套餐 + 换品<br>随心配 1+1 · 门店券</div>
-    <span class="chip">多一样、少一样都不算</span></div>
-  <div class="arrow"><svg viewBox="0 0 24 24"><path d="M4 12h13M12 5l7 7-7 7" fill="none" stroke="#DA291C" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-  <div class="step"><div class="num">4</div><h4>麦当劳<br>官方核价</h4>
-    <div class="say">每个候选逐个核价<br>核价成功的才参与排名</div>
-    <div class="tool">calculate-price</div></div>
-  <div class="arrow"><svg viewBox="0 0 24 24"><path d="M4 12h13M12 5l7 7-7 7" fill="none" stroke="#DA291C" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-  <div class="step hot"><div class="num">5</div><h4>一个建议<br>+ 一张账单</h4>
-    <div class="say">少付多少、为什么<br>门店 · 时间 · 核价编号</div>
-    <span class="chip">省不下就直说</span></div>
+<div class="title"><i></i>麦麦参谋 · 业务流程<small>同一顿，换个买法：价格只认麦当劳官方核价</small></div>
+
+<div class="lane" style="top:90px;height:150px"><div class="lbl">用户</div></div>
+<div class="lane alt" style="top:240px;height:160px"><div class="lbl">AI 助手<span>Skill / 命令行</span></div></div>
+<div class="lane" style="top:400px;height:310px"><div class="lbl">麦麦参谋<br>引擎<span>确定性代码</span></div></div>
+<div class="lane alt" style="top:710px;height:180px;border-bottom:1px solid #E4DFD3"><div class="lbl">麦当劳<br>官方 MCP<span>8 个工具</span></div></div>
+
+<svg width="1760" height="980" viewBox="0 0 1760 980">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#3A3631"/></marker>
+    <marker id="r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#DA291C"/></marker>
+  </defs>
+  <g fill="none" stroke="#3A3631" stroke-width="1.8">
+    <!-- diamonds -->
+    <polygon points="470,448 545,500 470,552 395,500" fill="#FFC72C" stroke="#B88A00" stroke-width="1.8"/>
+    <polygon points="1040,448 1115,500 1040,552 965,500" fill="#FFC72C" stroke="#B88A00" stroke-width="1.8"/>
+    <polygon points="1420,448 1495,500 1420,552 1345,500" fill="#FFC72C" stroke="#B88A00" stroke-width="1.8"/>
+    <!-- main flow -->
+    <path d="M270,193 V283" marker-end="url(#a)"/>
+    <path d="M270,355 V500 H393" marker-end="url(#a)"/>
+    <path d="M470,448 V357" marker-end="url(#a)"/>
+    <path d="M385,320 H362" marker-end="url(#a)"/>
+    <path d="M545,500 H573" marker-end="url(#a)"/>
+    <path d="M745,500 H763" marker-end="url(#a)"/>
+    <path d="M935,500 H963" marker-end="url(#a)"/>
+    <path d="M1040,448 V352" marker-end="url(#a)"/>
+    <path d="M1115,500 H1143" marker-end="url(#a)"/>
+    <path d="M1315,500 H1343" marker-end="url(#a)"/>
+    <path d="M1420,448 V352" marker-end="url(#a)"/>
+    <path d="M1495,500 H1610 V360" marker-end="url(#a)"/>
+    <path d="M1610,280 V195" marker-end="url(#a)"/>
+  </g>
+  <!-- data exchange with MCP -->
+  <g fill="none" stroke="#DA291C" stroke-width="1.8" stroke-dasharray="6 5">
+    <path d="M660,537 V755" marker-start="url(#r)" marker-end="url(#r)"/>
+    <path d="M1230,537 V755" marker-start="url(#r)" marker-end="url(#r)"/>
+  </g>
+</svg>
+
+<!-- lane: 用户 -->
+<div class="n pill" style="left:180px;top:137px;width:180px;height:56px">说出想吃什么 + 在哪</div>
+<div class="n pill" style="left:1500px;top:137px;width:210px;height:56px">去 App 下单，自己付款</div>
+
+<!-- lane: AI 助手 -->
+<div class="n rect" style="left:180px;top:285px;width:180px;height:70px">解析成餐品清单<br>（AI 理解你的话）</div>
+<div class="n rect" style="left:385px;top:285px;width:170px;height:70px">反问用户：<br>你说的是哪一个？</div>
+<div class="n pill soft" style="left:950px;top:290px;width:180px;height:60px">直说：这家店买不到<br>一模一样的这一顿</div>
+<div class="n pill soft" style="left:1330px;top:290px;width:180px;height:60px">直说：这次拿不到<br>官方价，不给建议</div>
+<div class="n rect key" style="left:1525px;top:282px;width:170px;height:76px">一个建议 + 少付多少<br>+ 可核对的账单</div>
+
+<!-- lane: 引擎 -->
+<div class="dia" style="left:395px;top:448px;width:150px;height:104px">名字<br>明确？</div>
+<div class="n rect" style="left:575px;top:465px;width:170px;height:70px">拆成具体食物<br>（规格、份数）</div>
+<div class="n rect" style="left:765px;top:465px;width:170px;height:70px">列出同一顿的<br>所有买法</div>
+<div class="dia" style="left:965px;top:448px;width:150px;height:104px">有同一顿<br>的买法？</div>
+<div class="n rect key" style="left:1145px;top:465px;width:170px;height:70px">逐个送麦当劳<br>官方核价</div>
+<div class="dia" style="left:1345px;top:448px;width:150px;height:104px">有核价成功<br>的方案？</div>
+
+<div class="n note" style="left:385px;top:600px;width:175px;height:92px"><b>规则</b>可领券没有券号：标为待核验，不参与排名；领券要用户在终端输入 y</div>
+<div class="n note" style="left:765px;top:600px;width:175px;height:92px"><b>规则</b>分开点 / 套餐 + 换品 / 随心配 / 组合 / 门店券；多一样少一样都不算</div>
+<div class="n note" style="left:955px;top:600px;width:175px;height:92px"><b>规则</b>菜单更便宜但要随单买卡：不加卡、加卡分别核价，只解释</div>
+<div class="n note" style="left:1335px;top:600px;width:175px;height:92px"><b>规则</b>单个方案核价失败：标记无法确认，不参与排名</div>
+
+<!-- lane: MCP -->
+<div class="n mcp" style="left:500px;top:752px;width:320px;height:110px"><b>查门店 · 菜单 · 套餐组成 · 券</b><code>query-nearby-stores · query-meals<br>query-meal-detail · query-store-coupons<br>available-coupons · now-time-info</code></div>
+<div class="n mcp" style="left:1100px;top:757px;width:260px;height:100px"><b>官方核价（唯一的价格来源）</b><code>calculate-price<br>含「随单购会员卡」价格</code></div>
+
+<!-- edge labels -->
+<div class="lab no" style="left:478px;top:398px">否</div>
+<div class="lab yes" style="left:549px;top:478px">是</div>
+<div class="lab no" style="left:1048px;top:392px">否</div>
+<div class="lab yes" style="left:1118px;top:478px">是</div>
+<div class="lab no" style="left:1428px;top:392px">否</div>
+<div class="lab yes" style="left:1520px;top:478px">是</div>
+<div class="lab" style="left:668px;top:700px;color:#DA291C;background:#fff">取数</div>
+<div class="lab" style="left:1238px;top:700px;color:#DA291C;background:#fff">核价</div>
+
+<div class="legend">
+  <span><i class="lg" style="background:#27251F;border-radius:10px"></i>开始 / 结束</span>
+  <span><i class="lg" style="border:2px solid #3A3631;border-radius:4px"></i>处理</span>
+  <span><i class="lg" style="border:2.5px solid #DA291C;border-radius:4px"></i>关键步骤</span>
+  <span><svg width="34" height="20" style="position:static"><polygon points="17,1 33,10 17,19 1,10" fill="#FFC72C" stroke="#B88A00"/></svg>判断</span>
+  <span><i class="lg" style="background:#FDEDEB;border:2px solid #DA291C;border-radius:4px"></i>调用麦当劳 MCP</span>
+  <span><i class="lg" style="border:1.5px dashed #A79F8C;border-radius:4px;background:#FFFDF6"></i>规则说明</span>
 </div>
-<div class="hook"></div><div class="hook2"></div>
-<div class="branch">
-  <div class="side pend"><span class="tag">可领券</span><p>还没领的券拿不到券号，标为<b>待核验</b>、不参与排名；领券要你在终端亲手输入 y。</p></div>
-  <div class="side"><span class="tag">看着便宜</span><p>菜单更便宜但要<b>随单加购会员卡</b>：不加卡、加卡（含卡费）<b>分别核价</b>，只解释，不推荐买卡。</p></div>
-</div>
-<footer><span>用到麦当劳 MCP 的 <b>8</b> 个工具 · 默认只读 · 不下单</span><span>非麦当劳官方产品</span></footer>
+<div class="foot">价格只来自 <b>calculate-price</b> · 默认只读 · 不下单 · 非麦当劳官方产品</div>
 </body></html>

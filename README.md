@@ -3,12 +3,15 @@
 </p>
 
 <p align="center">
+  <a href="https://wenboxia.github.io/mcd-advisor/"><strong>🍔 在线体验</strong></a> &middot;
   <a href="#先看效果"><strong>先看效果</strong></a> &middot;
-  <a href="#30-秒离线试用"><strong>30 秒试用</strong></a> &middot;
-  <a href="#快速开始"><strong>快速开始</strong></a> &middot;
-  <a href="#在-agent-里当-skill-用"><strong>Agent Skill</strong></a> &middot;
+  <a href="#三种用法"><strong>三种用法</strong></a> &middot;
   <a href="#它怎么工作"><strong>怎么工作</strong></a> &middot;
   <a href="README.en.md"><strong>English</strong></a>
+</p>
+
+<p align="center">
+  <a href="https://wenboxia.github.io/mcd-advisor/"><img src="https://img.shields.io/badge/%E5%9C%A8%E7%BA%BF%E4%BD%93%E9%AA%8C-%E4%B8%8D%E7%94%A8%E8%A3%85%E3%80%81%E4%B8%8D%E7%94%A8%20Token-FFC72C?style=for-the-badge" alt="在线体验：不用装、不用 Token"></a>
 </p>
 
 <p align="center">
@@ -25,6 +28,8 @@
 **菜单显示 ¥28，为什么这次核价是 ¥57？**
 
 你想吃的东西（餐品、规格、数量）**一样都不变**，麦麦参谋用**麦当劳官方核价**帮你核对这一顿怎么买更合适：分开点、套餐、随心配 1+1、门店券，挑出一个，并附上一张能核对的账单。省得下就告诉你怎么省，省不下就直说。
+
+👉 **[打开在线体验](https://wenboxia.github.io/mcd-advisor/)**：点选想吃的，马上看到建议和账单。页面上 249 个组合的价格，都是在真实门店由麦当劳官方核价接口逐个返回的，不是估算。
 
 <table>
   <tr><td width="64"><b>场&#8288;景</b></td><td>点麦当劳之前，想知道「同样这些东西」怎么买更合适</td></tr>
@@ -60,67 +65,68 @@ node bin/mcd-advisor.mjs "巨无霸 板烧鸡腿堡 麦辣鸡腿堡 3个中薯 3
 
 建议点**巨无霸、板烧鸡腿堡、麦辣鸡腿汉堡三份三件套**，共 ¥104.5，分开点要 ¥142.0，少付 ¥37.5，同样有离线回放记录。它只回答「合在一起怎么买」，不做 AA 分账，谁付多少你们自己转就好。
 
-## 30 秒离线试用
+## 三种用法
 
-不需要 Token，也不需要装任何依赖，用的是录下来的真实官方返回：
+### ① 在线体验：不用装、不用 Token
+
+打开 **[https://wenboxia.github.io/mcd-advisor/](https://wenboxia.github.io/mcd-advisor/)**，选主食、小食、饮品和份数，右边就是麦麦参谋的回答：建议买法、少付多少、会员条件价的解释、可领券提醒，还有一张能展开核对的账单。
+
+页面数据是在一家上海门店的午餐时段用官方核价逐个录下的快照；想用你自己的门店实时核价，用下面两种方式。
+
+### ② 在 AI 助手里一句话问（推荐）
+
+本仓库就是一个 Agent Skill（[`SKILL.md`](SKILL.md)），装进 Claude Code、Codex 等支持 Skill 的工具后，直接说「麦辣鸡腿堡加中薯中可乐，人民广场附近怎么买更划算」就行：
 
 ```bash
-git clone https://github.com/wenboxia/mcd-advisor.git
-cd mcd-advisor
-npm run demo
+git clone https://github.com/wenboxia/mcd-advisor.git ~/.claude/skills/mcd-advisor
 ```
 
-## 快速开始
+第一次用之前，需要一个你自己的麦当劳 MCP Token：
+1. 在 [open.mcd.cn/mcp](https://open.mcd.cn/mcp) 用手机号登录 → 控制台 → 激活；
+2. 写进**仓库之外**的 `~/.config/mcd-advisor/.env`（格式见 [`.env.example`](.env.example)），不要发给任何人。
 
-1. 需要 Node.js 18+，零第三方依赖。
-2. 在 [open.mcd.cn/mcp](https://open.mcd.cn/mcp) 用手机号登录 → 控制台 → 激活，拿到你自己的 MCP Token。
-3. 把 Token 写进**仓库之外**的本机配置文件（格式见 [`.env.example`](.env.example)）：
-   ```bash
-   mkdir -p ~/.config/mcd-advisor && cp .env.example ~/.config/mcd-advisor/.env
-   # 编辑 ~/.config/mcd-advisor/.env，填上 MCD_MCP_TOKEN
-   ```
-4. 问一句：
-   ```bash
-   node bin/mcd-advisor.mjs "麦辣鸡腿堡 中薯 中可乐" --city 上海市 --near 人民广场
-   node bin/mcd-advisor.mjs "两个麦香鸡 两杯中可乐" --store 1450713 --json
-   node bin/mcd-advisor.mjs "麦辣鸡腿汉堡三件套" --city 上海市 --near 人民广场   # 报套餐名也行，按默认搭配拆开比较
-   ```
-5. （可选）用一句大白话问：在配置文件里加上 `DEEPSEEK_API_KEY`。换成 Kimi、GLM 等兼容 OpenAI 接口的模型时，再设 `LLM_BASE_URL`（接口地址）和 `DEEPSEEK_MODEL`（模型名）：
-   ```bash
-   node bin/mcd-advisor.mjs --ask "中午想在上海人民广场吃个麦辣鸡腿堡，配中薯和可乐"
-   ```
-   模型只负责把这句话转成餐品清单，比价和核价仍然全部由代码完成。
+Skill 按**三层渐进式披露**组织：
+- frontmatter 里的说明负责触发；
+- `SKILL.md` 正文约 40 行，只放硬规则和流程；
+- `references/` 里的规则和排错文档在需要时才读。
+
+宿主模型只负责问清楚要吃什么、运行脚本、把结果讲清楚，**价格一律来自脚本输出**。
+
+没有支持 Skill 的工具？在配置里加上 `DEEPSEEK_API_KEY`，用一句大白话问也行（换 Kimi、GLM 时再设 `LLM_BASE_URL` 和 `DEEPSEEK_MODEL`）：
+
+```bash
+node bin/mcd-advisor.mjs --ask "中午想在上海人民广场吃个麦辣鸡腿堡，配中薯和可乐"
+```
+
+### ③ 命令行（开发者）
+
+零第三方依赖，Node.js 18+。先离线跑一下，不需要 Token：
+
+```bash
+git clone https://github.com/wenboxia/mcd-advisor.git && cd mcd-advisor && npm run demo
+```
+
+配好 Token 后实时核价：
+
+```bash
+node bin/mcd-advisor.mjs "麦辣鸡腿堡 中薯 中可乐" --city 上海市 --near 人民广场
+node bin/mcd-advisor.mjs "两个麦香鸡 两杯中可乐" --store 1450713 --json
+node bin/mcd-advisor.mjs "麦辣鸡腿汉堡三件套" --city 上海市 --near 人民广场   # 报套餐名也行，按默认搭配拆开比较
+```
 
 | 选项 | 作用 |
 |---|---|
 | `--city` `--near` | 按城市 + 地标找最近的门店；都不填就用你在 App 里收藏的门店 |
 | `--store` | 直接指定门店编号 |
 | `--json` | 输出 JSON，给 Agent 或其他程序用 |
+| `--ask` | 用一句大白话提问（需要 DeepSeek 等模型 Key） |
 | `--claim` | 领取麦麦省可领券后重新核价。官方接口会**一次领取全部**可领券，所以脚本会先说明，并要你在终端里亲手输入 `y` |
 | `--replay <dir>` | 用录好的数据离线运行 |
-
-## 在 Agent 里当 Skill 用
-
-本仓库就是一个 Agent Skill（[`SKILL.md`](SKILL.md)），可以放进 Claude Code、Codex 等支持 Skill 的工具：
-
-```bash
-# Claude Code
-git clone https://github.com/wenboxia/mcd-advisor.git ~/.claude/skills/mcd-advisor
-```
-
-然后直接说「麦辣鸡腿堡加中薯中可乐，人民广场附近怎么买更划算」。
-
-Skill 按**三层渐进式披露**组织：
-1. frontmatter 里的说明负责触发；
-2. `SKILL.md` 正文约 40 行，只放硬规则和流程；
-3. `references/` 里的规则和排错文档在需要时才读。
-
-宿主模型只负责问清楚要吃什么、运行脚本、把结果讲清楚，**价格一律来自脚本输出**。
 
 ## 它怎么工作
 
 <p align="center">
-  <img src="docs/images/flow.png?v=2" alt="它怎么工作：你说想吃什么 → 拆成具体食物 → 列出同一顿的所有买法 → 麦当劳官方核价 → 一个建议 + 一张账单；可领券标为待核验，会员条件价分别核价只解释" width="880">
+  <img src="docs/images/flow.png?v=3" alt="业务流程（泳道图）：用户、AI 助手、麦麦参谋引擎、麦当劳官方 MCP 四条泳道；名字不明确先反问，买不到一模一样的直说，只有官方核价成功的方案参与排名" width="880">
 </p>
 
 - **同一顿，由代码判定**：每个方案拆开后，食物清单必须和你要的完全一致，多出一份薯条也不行。小杯和中杯算两种东西；「任选 3 份」这样的格子按份数算。买不到一模一样的一顿时会直说（例如某样东西只在会多出别的东西的套餐里卖）。

@@ -45,3 +45,9 @@ for (const [name, w, h] of shots) {
     '--virtual-time-budget=8000', `--screenshot=${root}/docs/images/${name}.png`, `file://${root}/docs/design/${name}.html`], { stdio: 'ignore' });
   console.log(`docs/images/${name}.png`);
 }
+
+// The experience page itself (only its try section via ?shot=1), preselected through a shareable link.
+const pick = new URLSearchParams({ shot: '1', m: '麦辣鸡腿堡', s: '中薯', d: '中可乐', n: '1' });
+execFileSync(CHROME, ['--headless=new', '--disable-gpu', '--hide-scrollbars', '--window-size=1240,990', '--force-device-scale-factor=2',
+  '--virtual-time-budget=10000', `--screenshot=${root}/docs/images/demo-page.png`, `file://${root}/docs/index.html?${pick}`], { stdio: 'ignore' });
+console.log('docs/images/demo-page.png');

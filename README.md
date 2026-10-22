@@ -45,8 +45,8 @@
 </p>
 
 <p align="center">
-  <img src="docs/images/terminal.png?v=2" alt="终端输出：建议三件套 ¥33.5，比分开点少付 ¥12.5，并解释 ¥28 的四件套和可领券" width="760">
-  <br><sub>离线回放 2026-10-21 晚在上海黄浦华旭国际大厦餐厅录下的官方返回（<code>fixtures/</code>，任何人都能复现）。价格因门店、时段而异，不是全国统一价。</sub>
+  <a href="https://wenboxia.github.io/mcd-advisor/?m=%E9%BA%A6%E8%BE%A3%E9%B8%A1%E8%85%BF%E5%A0%A1&s=%E4%B8%AD%E8%96%AF&d=%E4%B8%AD%E5%8F%AF%E4%B9%90&n=1"><img src="docs/images/demo-page.png?v=1" alt="在线体验页：选麦辣鸡腿堡 + 中薯 + 中可乐，建议三件套 ¥33.5，比分开点少付 ¥12.5，并解释 ¥28 的四件套和可领券" width="880"></a>
+  <br><sub>在线体验页截图：每个价格都是麦当劳官方核价（上海黄浦华旭国际大厦餐厅，2026-10-22 午餐时段）。<a href="https://wenboxia.github.io/mcd-advisor/">点图打开，自己选一顿试试</a>。</sub>
 </p>
 
 这三个案例覆盖了三种结果：
@@ -105,6 +105,12 @@ node bin/mcd-advisor.mjs --ask "中午想在上海人民广场吃个麦辣鸡腿
 ```bash
 git clone https://github.com/wenboxia/mcd-advisor.git && cd mcd-advisor && npm run demo
 ```
+
+命令行输出示例：
+
+<p align="center">
+  <img src="docs/images/terminal.png?v=2" alt="命令行输出示例：建议三件套 ¥33.5，比分开点少付 ¥12.5，并解释 ¥28 的四件套和可领券" width="720">
+</p>
 
 配好 Token 后实时核价：
 

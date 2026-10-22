@@ -32,9 +32,9 @@ Built on the official McDonald's China MCP server for the McDonald's Developer I
 ## What it looks like
 
 <p align="center"><img src="docs/images/cases.png?v=2" alt="Three real cases" width="880"></p>
-<p align="center"><img src="docs/images/terminal.png?v=2" alt="A real run in the terminal" width="760"></p>
+<p align="center"><a href="https://wenboxia.github.io/mcd-advisor/"><img src="docs/images/demo-page.png?v=1" alt="The online experience page: pick a meal, get one officially priced recommendation" width="880"></a><br><sub>The online experience page (click to open). Every price was returned by McDonald's official price check at a Shanghai store on 2026-10-22.</sub></p>
 
-All three cases come from one real store in Shanghai on 2026-10-21. Prices vary by store and time of day.
+The cases above come from one real store in Shanghai (2026-10-21 and 2026-10-22). Prices vary by store and time of day.
 
 | You want | Answer |
 |---|---|

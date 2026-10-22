@@ -100,6 +100,9 @@
   .data li { margin:6px 0 6px 18px; color:#4a4538; }
   footer { border-top:1px solid var(--line); padding:28px 0 40px; color:var(--mute); font-size:14px; }
   footer .wrap { display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; }
+  /* ?shot=1 renders only the try section, for README screenshots */
+  .shot nav, .shot header, .shot section:not(#try), .shot footer { display:none; }
+  .shot #try { padding:34px 0 40px; }
   @media (max-width: 900px) {
     nav .links { display:none; }
     nav .links + .gh { margin-left:auto; }
@@ -159,6 +162,7 @@
         <div class="stepper"><button id="minus" aria-label="减少">−</button><span id="n">1</span><button id="plus" aria-label="增加">+</button></div></div>
       <div class="quick group"><label>或者直接看这几个场景</label><div class="chips" id="g-quick"></div></div>
       <div class="said" id="said"></div>
+      <div class="note">选好之后，地址栏里的链接可以直接发给朋友，打开就是这一顿。</div>
       <div class="note" id="meta"></div>
     </div>
     <div class="card res" id="result"><h3>② 麦麦参谋的回答</h3><div id="out">加载中…</div></div>
@@ -308,6 +312,23 @@
     const c = current();
     $('said').textContent = c ? `你说：${c.request}` : '你说：（还没选）';
     show(c);
+    syncUrl();
+  }
+
+  // Shareable links: ?m=麦辣鸡腿堡&s=中薯&d=中可乐&n=1  or  ?preset=group
+  function readUrl() {
+    const q = new URLSearchParams(location.search);
+    if (q.get('preset') && D.presets[q.get('preset')]) { state.preset = q.get('preset'); return; }
+    if (!['m', 's', 'd', 'n'].some((k) => q.has(k))) return;
+    const pick = (k, list) => (list.includes(q.get(k)) ? q.get(k) : '');
+    Object.assign(state, { preset: null, main: pick('m', D.menu.mains), side: pick('s', D.menu.sides), drink: pick('d', D.menu.drinks), n: Math.min(3, Math.max(1, parseInt(q.get('n'), 10) || 1)) });
+  }
+  function syncUrl() {
+    const q = new URLSearchParams();
+    if (new URLSearchParams(location.search).has('shot')) return;
+    if (state.preset) q.set('preset', state.preset);
+    else { if (state.main) q.set('m', state.main); if (state.side) q.set('s', state.side); if (state.drink) q.set('d', state.drink); q.set('n', state.n); }
+    try { history.replaceState(null, '', `${location.pathname}?${q}${location.hash}`); } catch (e) { /* file:// or sandboxed */ }
   }
   $('minus').onclick = () => { state.preset = null; state.n = Math.max(1, state.n - 1); render(); };
   $('plus').onclick = () => { state.preset = null; state.n = Math.min(3, state.n + 1); render(); };
@@ -327,6 +348,8 @@
   $('meta').textContent = meta; $('hk-foot').textContent = meta;
   if (D.store) $('d-store').textContent = D.store.name;
   if (D.at) $('d-at').textContent = D.at.slice(0, 16) + ' 前后';
+  if (new URLSearchParams(location.search).has('shot')) document.body.classList.add('shot');
+  readUrl();
   render();
 })();
 </script>

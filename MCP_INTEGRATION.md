@@ -5,9 +5,9 @@
 |---|---|
 | Server | 麦当劳中国官方 MCP（`mcd-mcp`） |
 | 地址 | `https://mcp.mcd.cn`（Streamable HTTP，无会话状态） |
-| 鉴权 | 请求头 `Authorization: Bearer ${MCD_MCP_TOKEN}`；Token 只放在本机 `~/.config/mcd-advisor/.env`，不进仓库 |
+| 鉴权 | 请求头 `Authorization: Bearer ${MCD_MCP_TOKEN}`；Token 只放在本机 `~/.config/mcd-advisor/.env`，不进仓库；装在 WorkBuddy 里时，没配 `.env` 就只读复用 WorkBuddy 里已配好的麦当劳连接器（`~/.workbuddy/mcp.json` 中地址为 `https://mcp.mcd.cn` 的那一个） |
 | 配置示例 | [`mcp-config.example.json`](mcp-config.example.json)（只含环境变量占位符） |
-| 接入方式 | `src/mcp.mjs` 直接按 JSON-RPC 调用 `tools/call`；价格从返回文本里的原始 JSON 读取，**不经过大模型** |
+| 接入方式 | `src/mcp.mjs` 直接按 JSON-RPC 调用 `tools/call`；价格从返回文本里的原始 JSON 读取，**不经过大模型**。装在 WorkBuddy 等 AI 助手里也一样：助手只运行脚本，脚本直连官方 MCP、只调白名单里的工具 |
 
 ## 2. 用到的 8 个工具（线上共 35 个）
 | 工具 | 读 / 写 | 在本项目里做什么 |

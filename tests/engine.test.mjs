@@ -6,6 +6,10 @@ import { buildCatalog, defaultContents } from '../src/catalog.mjs';
 import { parseRequest, splitQty } from '../src/match.mjs';
 import { generateCandidates } from '../src/plan.mjs';
 import { advise, findStore } from '../src/advisor.mjs';
+import { workbuddyToken, loadEnv } from '../src/env.mjs';
+import { mkdtempSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
 
 const FIX = new URL('../fixtures/shanghai-1450713', import.meta.url).pathname;
 const base = { storeCode: '1450713', orderType: 1, beType: 1 };
@@ -94,4 +98,41 @@ test('商品详情取不到时，这个商品不参与比较（不会被当成�
   const c = buildCatalog(menu, broken);
   assert.ok(!c.products.has('9900005456'));
   assert.deepEqual(c.skipped.map((x) => x.code), ['9900005456']);
+});
+
+const wbDir = mkdtempSync(join(tmpdir(), 'mcd-wb-'));
+const wbFile = (servers, name = 'mcp.json') => {
+  const f = join(wbDir, name);
+  writeFileSync(f, JSON.stringify({ mcpServers: servers }));
+  return f;
+};
+const mcd = (auth, url = 'https://mcp.mcd.cn') => ({ type: 'streamablehttp', url, headers: { Authorization: auth } });
+
+test('WorkBuddy：复用已配好的麦当劳连接器 Token（连接器叫什么都行，地址末尾带斜杠也认）', () => {
+  assert.equal(workbuddyToken(wbFile({ '麦当劳': mcd('Bearer wb-fake-token-1', 'https://mcp.mcd.cn/') }, 'a.json')), 'wb-fake-token-1');
+  assert.equal(workbuddyToken(wbFile({ other: mcd('Bearer x-other-token', 'https://example.com'), 'mcd-mcp': mcd('Bearer wb-fake-token-2') }, 'b.json')), 'wb-fake-token-2');
+});
+
+test('WorkBuddy：非官方地址、占位符、多个麦当劳连接器、文件不存在，一律当作没有', () => {
+  assert.equal(workbuddyToken(wbFile({ x: mcd('Bearer wb-fake-token-3', 'https://mcp.mcd.cn.example.com') }, 'c.json')), null);
+  assert.equal(workbuddyToken(wbFile({ x: mcd('Bearer ${MCD_MCP_TOKEN}') }, 'd.json')), null);
+  assert.equal(workbuddyToken(wbFile({ x: mcd('Bearer <你的Token>') }, 'e.json')), null);
+  assert.equal(workbuddyToken(wbFile({ a: mcd('Bearer wb-fake-token-4'), b: mcd('Bearer wb-fake-token-5') }, 'f.json')), null);
+  assert.equal(workbuddyToken(join(wbDir, 'missing.json')), null);
+});
+
+test('WorkBuddy：已有 MCD_MCP_TOKEN 时不覆盖，没有时才补上', () => {
+  const saved = process.env.MCD_MCP_TOKEN;
+  const opts = { envFile: join(wbDir, 'no.env'), workbuddyFile: wbFile({ x: mcd('Bearer wb-fake-token-6') }, 'g.json') };
+  try {
+    process.env.MCD_MCP_TOKEN = 'preset-tok';
+    loadEnv(opts);
+    assert.equal(process.env.MCD_MCP_TOKEN, 'preset-tok');
+    delete process.env.MCD_MCP_TOKEN;
+    loadEnv(opts);
+    assert.equal(process.env.MCD_MCP_TOKEN, 'wb-fake-token-6');
+  } finally {
+    if (saved === undefined) delete process.env.MCD_MCP_TOKEN;
+    else process.env.MCD_MCP_TOKEN = saved;
+  }
 });

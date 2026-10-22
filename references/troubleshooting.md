@@ -2,7 +2,7 @@
 
 | 脚本输出 | 原因 | 怎么跟用户说 / 怎么做 |
 |---|---|---|
-| `缺少麦当劳 MCP Token` | 本机没有配置 Token | 去 open.mcd.cn 用手机号登录 → 控制台 → 激活，把 Token 写进 `~/.config/mcd-advisor/.env` 的 `MCD_MCP_TOKEN=`（不要发到聊天里） |
+| `缺少麦当劳 MCP Token` | 本机没有配置 Token | 去 open.mcd.cn 用手机号登录 → 控制台 → 激活，把 Token 写进 `~/.config/mcd-advisor/.env` 的 `MCD_MCP_TOKEN=`（不要发到聊天里）；在 WorkBuddy 里用的话，也可以在【专家 · 技能 · 连接器】→【连接器】里配好麦当劳 MCP，脚本会直接读取 |
 | `Token 无效或已过期`（401） | Token 失效 | 去 open.mcd.cn 控制台重新激活 |
 | `请求太快被限流`（429）或「太火爆了，请稍后再试」 | 官方限流（600 次/分钟）或高峰保护 | 脚本已自动等待重试；仍失败就过一会儿再试 |
 | `没有收藏门店` | 没给位置，App 里也没收藏门店 | 问用户城市和地标，加 `--city` `--near` |

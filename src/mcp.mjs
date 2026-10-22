@@ -53,7 +53,7 @@ const BUSY = /太火爆|稍后再试/;
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 export function createClient({ token = process.env.MCD_MCP_TOKEN, allowWrite = false, fetchImpl = fetch } = {}) {
-  if (!token) throw new McpError('缺少麦当劳 MCP Token：请在 ~/.config/mcd-advisor/.env 里设置 MCD_MCP_TOKEN', { code: 'NO_TOKEN' });
+  if (!token) throw new McpError('缺少麦当劳 MCP Token：请在 ~/.config/mcd-advisor/.env 里设置 MCD_MCP_TOKEN，或在 WorkBuddy【连接器】里配好麦当劳 MCP', { code: 'NO_TOKEN' });
   let id = 0;
 
   async function call(tool, args = {}) {

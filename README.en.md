@@ -13,9 +13,10 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/prices-official%20calculate--price-DA291C" alt="prices from the official calculate-price">
-  <a href="tests/advisor.test.mjs"><img src="https://img.shields.io/badge/offline%20tests-24%20passing-2E7D32" alt="24 offline tests"></a>
+  <a href="tests/advisor.test.mjs"><img src="https://img.shields.io/badge/offline%20tests-27%20passing-2E7D32" alt="27 offline tests"></a>
   <img src="https://img.shields.io/badge/dependencies-0-FFC72C" alt="zero dependencies">
   <img src="https://img.shields.io/badge/node-%E2%89%A518-3C873A" alt="Node ≥18">
+  <a href="#use-it-as-an-agent-skill"><img src="https://img.shields.io/badge/Skill%20for-WorkBuddy%20%C2%B7%20Claude%20Code%20%C2%B7%20Codex-27251F" alt="Skill for WorkBuddy · Claude Code · Codex"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue" alt="MIT"></a>
 </p>
 
@@ -65,13 +66,23 @@ git clone https://github.com/wenboxia/mcd-advisor.git && cd mcd-advisor && npm r
 
 ## Use it as an Agent Skill
 
-The repository itself is a Skill ([`SKILL.md`](SKILL.md)) for Claude Code, Codex and similar hosts:
+The repository itself is a standard Skill ([`SKILL.md`](SKILL.md)). Install it in **WorkBuddy**, Claude Code, Codex or any host that supports Skills:
+
+| Host | Install |
+|---|---|
+| **WorkBuddy** | Import the repository folder under 专家 · 技能 · 连接器 (Experts · Skills · Connectors), or clone it into WorkBuddy's skill folder (command below) and restart WorkBuddy |
+| Claude Code | `git clone https://github.com/wenboxia/mcd-advisor.git ~/.claude/skills/mcd-advisor` |
+| Codex and others | Put the repository in that host's Skill folder |
 
 ```bash
-git clone https://github.com/wenboxia/mcd-advisor.git ~/.claude/skills/mcd-advisor
+git clone https://github.com/wenboxia/mcd-advisor.git ~/.workbuddy/skills/mcd-advisor
 ```
 
-The host model asks what you want, runs the script and explains the result. Prices always come from the script.
+On Windows, WorkBuddy's skill folder is `%USERPROFILE%\.workbuddy\skills\`.
+
+Token: if you already set up the McDonald's MCP connector in WorkBuddy, nothing else is needed. The script reuses that token from your local WorkBuddy config, read-only. With other hosts, put it in `~/.config/mcd-advisor/.env`.
+
+The host model asks what you want, runs the script and explains the result. The script talks to the official McDonald's MCP server directly, so prices always come from the official `calculate-price`.
 
 ## How it stays honest
 

@@ -133,7 +133,7 @@
     <h1>同一顿，<em>换个买法</em></h1>
     <p>你想吃的东西一样都不变，麦麦参谋用<strong>麦当劳官方核价</strong>帮你核对这一顿怎么买更合适：分开点、套餐、随心配、门店券里只给一个答案，并附一张能核对的账单。省得下就告诉你怎么省，省不下就直说。</p>
     <div class="pills"><span>想吃的一样不变</span><span>价格只认官方核价</span><span>一个答案 + 一张账单</span></div>
-    <a class="btn primary" href="#try">马上试试</a><a class="btn ghost" href="#install">装到我的 AI 助手</a>
+    <a class="btn primary" href="#try">马上试试</a><a class="btn ghost" href="#install">装到 WorkBuddy 等 AI 助手</a>
   </div>
   <div class="hook" id="hook">
     <h3>你可能也遇到过</h3>
@@ -194,12 +194,13 @@
 </div></section>
 
 <section id="install" style="background:#fff;border-top:1px solid var(--line)"><div class="wrap">
-  <div class="eyebrow">装到你自己的 AI 助手</div>
+  <div class="eyebrow">装到 WorkBuddy 等 AI 助手</div>
   <h2>三种用法，挑一个顺手的</h2>
-  <p class="lead">先在 <a href="https://open.mcd.cn/mcp" target="_blank" rel="noopener">open.mcd.cn/mcp</a> 用手机号登录、激活，拿到你自己的 MCP Token，写进本机的 <code>~/.config/mcd-advisor/.env</code>（不要发给任何人）。</p>
+  <p class="lead">先在 <a href="https://open.mcd.cn/mcp" target="_blank" rel="noopener">open.mcd.cn/mcp</a> 用手机号登录、激活，拿到你自己的 MCP Token，写进本机的 <code>~/.config/mcd-advisor/.env</code>（不要发给任何人）。已经在 WorkBuddy【连接器】里配好麦当劳 MCP 的，这一步可以跳过，脚本会直接用那份配置。</p>
   <div class="grid3">
-    <div class="card"><h3><span class="step">1</span>在 AI 助手里一句话问</h3><p class="sub">装进 Claude Code、Codex 等支持 Skill 的工具，然后直接说「麦辣鸡腿堡加中薯中可乐，人民广场附近怎么买更划算」。</p>
-      <pre>git clone https://github.com/wenboxia/mcd-advisor.git ~/.claude/skills/mcd-advisor</pre></div>
+    <div class="card"><h3><span class="step">1</span>装进 WorkBuddy / Claude Code</h3><p class="sub">本仓库就是一个标准 Skill。装好后直接说「麦辣鸡腿堡加中薯中可乐，人民广场附近怎么买更划算」。</p>
+      <pre>git clone https://github.com/wenboxia/mcd-advisor.git ~/.workbuddy/skills/mcd-advisor</pre>
+      <p class="note">WorkBuddy 也可以在【专家 · 技能 · 连接器】里直接导入这个文件夹。Claude Code 放进 <code>~/.claude/skills/mcd-advisor</code>，Codex 等放进各自的 Skill 目录。</p></div>
     <div class="card"><h3><span class="step">2</span>一句大白话（DeepSeek）</h3><p class="sub">在配置里加上 DEEPSEEK_API_KEY，用一句话提问；模型只负责听懂，价格仍然全部来自官方核价。</p>
       <pre>node bin/mcd-advisor.mjs --ask "中午想在上海人民广场吃个麦辣鸡腿堡，配中薯和可乐"</pre></div>
     <div class="card"><h3><span class="step">3</span>命令行（开发者）</h3><p class="sub">零依赖，Node.js 18+。加 --json 给其他程序用；加 --replay 用录好的数据离线跑。</p>

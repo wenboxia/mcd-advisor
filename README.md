@@ -12,11 +12,12 @@
 
 <p align="center">
   <a href="https://wenboxia.github.io/mcd-advisor/"><img src="https://img.shields.io/badge/%E5%9C%A8%E7%BA%BF%E4%BD%93%E9%AA%8C-%E4%B8%8D%E7%94%A8%E8%A3%85%E3%80%81%E4%B8%8D%E7%94%A8%20Token-FFC72C?style=for-the-badge" alt="在线体验：不用装、不用 Token"></a>
+  <a href="#三种用法"><img src="https://img.shields.io/badge/Skill%20%E5%8F%AF%E8%A3%85%E8%BF%9B-WorkBuddy%20%C2%B7%20Claude%20Code%20%C2%B7%20Codex-27251F?style=for-the-badge" alt="Skill 可装进 WorkBuddy · Claude Code · Codex"></a>
 </p>
 
 <p align="center">
   <img src="https://img.shields.io/badge/%E4%BB%B7%E6%A0%BC%E6%9D%A5%E6%BA%90-%E9%BA%A6%E5%BD%93%E5%8A%B3%E5%AE%98%E6%96%B9%E6%A0%B8%E4%BB%B7-DA291C" alt="价格来源：麦当劳官方核价">
-  <a href="tests/advisor.test.mjs"><img src="https://img.shields.io/badge/%E7%A6%BB%E7%BA%BF%E6%B5%8B%E8%AF%95-24%20%E6%9D%A1%E9%80%9A%E8%BF%87-2E7D32" alt="离线测试 24 条通过"></a>
+  <a href="tests/advisor.test.mjs"><img src="https://img.shields.io/badge/%E7%A6%BB%E7%BA%BF%E6%B5%8B%E8%AF%95-27%20%E6%9D%A1%E9%80%9A%E8%BF%87-2E7D32" alt="离线测试 27 条通过"></a>
   <img src="https://img.shields.io/badge/%E4%BE%9D%E8%B5%96-0-FFC72C" alt="零依赖">
   <img src="https://img.shields.io/badge/node-%E2%89%A518-3C873A" alt="Node ≥18">
   <a href="MCP_INTEGRATION.md"><img src="https://img.shields.io/badge/%E9%BA%A6%E5%BD%93%E5%8A%B3%20MCP-8%20%2F%2035%20%E4%B8%AA%E5%B7%A5%E5%85%B7-27251F" alt="麦当劳 MCP：8/35 个工具"></a>
@@ -73,24 +74,35 @@ node bin/mcd-advisor.mjs "巨无霸 板烧鸡腿堡 麦辣鸡腿堡 3个中薯 3
 
 页面数据是在一家上海门店的午餐时段用官方核价逐个录下的快照；想用你自己的门店实时核价，用下面两种方式。
 
-### ② 在 AI 助手里一句话问（推荐）
+### ② 装进 WorkBuddy 等 AI 助手，一句话问（推荐）
 
-本仓库就是一个 Agent Skill（[`SKILL.md`](SKILL.md)），装进 Claude Code、Codex 等支持 Skill 的工具后，直接说「麦辣鸡腿堡加中薯中可乐，人民广场附近怎么买更划算」就行：
+本仓库就是一个标准的 Agent Skill（[`SKILL.md`](SKILL.md)），可以装进 **WorkBuddy**、Claude Code、Codex 等支持 Skill 的 AI 助手。装好后直接说「麦辣鸡腿堡加中薯中可乐，人民广场附近怎么买更划算」就行。
+
+| AI 助手 | 怎么装 |
+|---|---|
+| **WorkBuddy** | 下载本仓库，在【专家 · 技能 · 连接器】里导入整个文件夹；或者用下面的命令放进 WorkBuddy 的技能目录，再重启 WorkBuddy |
+| Claude Code | `git clone https://github.com/wenboxia/mcd-advisor.git ~/.claude/skills/mcd-advisor` |
+| Codex 等 | 把仓库放进该工具的 Skill 目录 |
 
 ```bash
-git clone https://github.com/wenboxia/mcd-advisor.git ~/.claude/skills/mcd-advisor
+git clone https://github.com/wenboxia/mcd-advisor.git ~/.workbuddy/skills/mcd-advisor
 ```
 
-第一次用之前，需要一个你自己的麦当劳 MCP Token：
-1. 在 [open.mcd.cn/mcp](https://open.mcd.cn/mcp) 用手机号登录 → 控制台 → 激活；
-2. 写进**仓库之外**的 `~/.config/mcd-advisor/.env`（格式见 [`.env.example`](.env.example)），不要发给任何人。
+Windows 上 WorkBuddy 的技能目录是 `%USERPROFILE%\.workbuddy\skills\`。
+
+第一次用之前，需要你自己的麦当劳 MCP Token（在 [open.mcd.cn/mcp](https://open.mcd.cn/mcp) 用手机号登录 → 控制台 → 激活）：
+- **WorkBuddy**：已经在【连接器】里配好麦当劳 MCP 的，不用再填，脚本会直接读本机的这份配置（只读不改）；
+- **其他工具**：写进**仓库之外**的 `~/.config/mcd-advisor/.env`（格式见 [`.env.example`](.env.example)）。
+
+Token 只留在你自己的电脑上，不要发给任何人。
+
+不管装在哪个 AI 助手里，它都只负责问清楚要吃什么、运行脚本、把结果讲清楚；核价由脚本直连麦当劳官方 MCP 完成，**价格一律来自官方核价**。
 
 Skill 按**三层渐进式披露**组织：
 - frontmatter 里的说明负责触发；
 - `SKILL.md` 正文约 40 行，只放硬规则和流程；
 - `references/` 里的规则和排错文档在需要时才读。
 
-宿主模型只负责问清楚要吃什么、运行脚本、把结果讲清楚，**价格一律来自脚本输出**。
 
 没有支持 Skill 的工具？在配置里加上 `DEEPSEEK_API_KEY`，用一句大白话问也行（换 Kimi、GLM 时再设 `LLM_BASE_URL` 和 `DEEPSEEK_MODEL`）：
 
@@ -146,11 +158,11 @@ node bin/mcd-advisor.mjs "麦辣鸡腿汉堡三件套" --city 上海市 --near �
 
 ## 为什么敢让你相信这个结果
 
-- **可复现**：`fixtures/` 里是 2026-10-21 晚真实查询录下的官方原始返回（已核对不含个人信息）。`npm test` 用它离线回放，24 条测试覆盖：
+- **可复现**：`fixtures/` 里是 2026-10-21 晚真实查询录下的官方原始返回（已核对不含个人信息）。`npm test` 用它离线回放，27 条测试覆盖：
   - 换买法、随心配、份数、几个人一起点、保持原单、买不到一模一样；
   - 会员条件价、可领券、一单一券、核价失败；
   - 多份格子、4 份以上最优、有资格限制的商品、模糊名字先问、套餐名展开；
-  - 指定门店、工具白名单、名字归一、密钥扫描。
+  - 指定门店、工具白名单、名字归一、密钥扫描、复用 WorkBuddy 连接器 Token。
 - **可核对**：每次建议都附核价编号（官方 `traceId`）和逐行小计。
 - **不夸大**：没有更合适的买法就说「保持原来的点法」。没领的券只标「待核验」，不拿来排名。
 
@@ -158,7 +170,7 @@ node bin/mcd-advisor.mjs "麦辣鸡腿汉堡三件套" --city 上海市 --near �
 
 - **默认只读**：工具调用走白名单。下单、取消、抽奖、积分兑换这些工具，即使被要求也发不出去（有测试覆盖）。
 - **唯一的写操作是领券**：必须加 `--claim`，并在终端里亲手输入 `y`。非交互环境会直接拒绝。
-- **密钥不出本机**：Token 和模型 Key 只放在 `~/.config/mcd-advisor/.env`，仓库里只有占位符。`npm run check-secrets` 会扫描所有要提交的文件，并逐字比对本机的真实密钥值；`npm test` 也会跑它。想在每次提交前自动检查，运行一次 `git config core.hooksPath .githooks`，之后 pre-commit 会扫描暂存区里实际要提交的内容。
+- **密钥不出本机**：Token 和模型 Key 只放在 `~/.config/mcd-advisor/.env`（或你在 WorkBuddy 里配好的麦当劳连接器，脚本只读不改），仓库里只有占位符。`npm run check-secrets` 会扫描所有要提交的文件，并逐字比对本机的真实密钥值；`npm test` 也会跑它。想在每次提交前自动检查，运行一次 `git config core.hooksPath .githooks`，之后 pre-commit 会扫描暂存区里实际要提交的内容。
 
 ## 已知限制
 

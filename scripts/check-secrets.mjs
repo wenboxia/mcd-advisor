@@ -6,7 +6,7 @@
 // have to be written into this script.
 import { execFileSync } from 'node:child_process';
 import { readFileSync, existsSync, statSync } from 'node:fs';
-import { ENV_FILE, parseEnvFile } from '../src/env.mjs';
+import { ENV_FILE, parseEnvFile, workbuddyToken } from '../src/env.mjs';
 
 const staged = process.argv.includes('--staged');
 const git = (...args) => execFileSync('git', args, { encoding: 'buffer', maxBuffer: 64 << 20 });
@@ -22,6 +22,8 @@ const values = new Map();
 for (const [name, value] of [...Object.entries(fromFile), ...Object.entries(process.env)]) {
   if (SECRET_NAME.test(name) && /(MCD|DEEPSEEK|LLM|OPENAI|KIMI|GLM|MOONSHOT|ZHIPU)/.test(name) && value && value.length >= 12) values.set(value, name);
 }
+const wb = workbuddyToken();
+if (wb && wb.length >= 12) values.set(wb, 'WorkBuddy 麦当劳连接器 Token');
 const empties = Object.entries(fromFile).filter(([n, v]) => SECRET_NAME.test(n) && (!v || v.length < 12)).map(([n]) => n);
 
 const patterns = [
